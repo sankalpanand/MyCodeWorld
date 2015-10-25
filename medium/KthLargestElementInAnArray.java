@@ -3,9 +3,10 @@ package medium;
 public class KthLargestElementInAnArray {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int nums[] = {12, 3, 5, 7, 4, 19, 26};
-		System.out.println(findKthLargest(nums, 6));
+		// int nums[] = {12, 3, 5, 7, 4, 19, 26};
+		int nums[] = {9,4,3,6,1,8,2,7};
+		int k = 2;
+		System.out.println(findKthLargest(nums, k));
 
 
 		//		int nums[] = {1,2};
@@ -14,7 +15,9 @@ public class KthLargestElementInAnArray {
 
 	}
 
-	public static int findKthLargest(int[] nums, int k) {		
+	// http://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/
+	public static int findKthLargest(int[] nums, int k) 
+	{		
 		int len = nums.length;
 
 		// We are sending k as len-k because we are for 2nd largest element in an array of size 10, we will search for 8th one. 
@@ -27,21 +30,20 @@ public class KthLargestElementInAnArray {
 		// Step 1: Partition the array around last element and get position of pivot
 		int pIndex = partition(nums, start, end);
 
-
 		// Step 2: If position = k, return element
 		if(pIndex == k)
 		{
 			return nums[pIndex];
 		}
 
-		// Step 3: If position is more, recur on the left sub array
+		// Step 3: pIndex usually means that all the elements lesser than it lies towards its left and the ones greater than it lie towards its right. 
+		// Since the search index is less than the pIndex, the search element should be in the LHS.
 		else if(pIndex > k)
 		{
-			// Value of k will remain unchanged in case of left sub array
 			return helper(nums, k, start, pIndex - 1);
 		}
 
-		// Step 4: If position is less, recur on the right sub array
+		// Step 4: Since the search index is more than the pIndex, the search element should be in the RHS.
 		else
 			return helper(nums, k, pIndex + 1, end);
 

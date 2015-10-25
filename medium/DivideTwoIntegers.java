@@ -4,7 +4,7 @@ public class DivideTwoIntegers {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(divide(16,4));
+		System.out.println(divide(91,13));
 
 	}
 	
@@ -24,7 +24,7 @@ public class DivideTwoIntegers {
         }
         else
         {
-            boolean negative = (dividend > 0 && divisor < 0) || (dividend < 0 && divisor > 0);
+            boolean negative = (dividend > 0 ^ divisor > 0) == true;
 
             long ldividend = Math.abs((long) dividend);
             long ldivisor = Math.abs((long) divisor);

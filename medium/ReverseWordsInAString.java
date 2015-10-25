@@ -5,28 +5,84 @@ import java.util.Stack;
 public class ReverseWordsInAString {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String input = "1 ";
+		// String input = "1 ";
+		String input = "the sky is blue";
+		// input = "a";
+		// input = "sankalp";
 		System.out.println(reverseWords(input));
 
 	}
 
-	public static String reverseWords1(String s) {
-		if(s.length() == 0) return s;
-		StringBuilder result = new StringBuilder();
+	// Without using stack
+	public static String reverseWords(String s) 
+	{
+		if(s == null) 
+			return "";
 
+		int i = 0;
+		StringBuilder newStr = new StringBuilder();
+		String word = "";
+
+		while(i < s.length())
+		{
+			char c = s.charAt(i);
+
+			// Words are generated here from characters
+			if(c != ' ')
+			{
+				word += c;
+			}
+
+			// Words are appended to sentences
+			else
+			{
+				// It means there are already words in the string, we just need to appeand the word
+				if(newStr.length() != 0 && word != "") 
+					newStr.insert(0, word + " "); // Notice the order here, we are placing word ahead of the new string
+
+				// It means this space occurs after the first word
+				if(newStr.length() == 0 && word != "") 
+					newStr.append(word);
+
+				// Reset the word
+				word = "";
+			}
+
+			i++;
+		}
+
+		// To take care of last word in the sentence
+		if(newStr.length() != 0 && word != "")
+			newStr.insert(0, word + " ");
+
+
+		// To take care of just one word string because the if() block never executed, so the word was not pushed to newStr
+		if(newStr.length() == 0 && word != "")
+			newStr.append(word);
+
+		return newStr.toString();
+	}
+
+	// Using Stack
+	public static String reverseWords1(String s) 
+	{
+		if(s.length() == 0) return s;
+
+
+		StringBuilder result = new StringBuilder();
 		Stack<Character> stack = new Stack<Character>();
+
 		for(int i = s.length()-1; i>=0; i--)
 		{
 			if(s.charAt(i) == ' ')
 			{
-				// StringBuilder word = new StringBuilder();
-
 				while(!stack.isEmpty())
 				{
 					result.append(stack.pop());
 				}
-				if(i!= 0) // For dealing with " 1"
+
+				// If there is a space at the 0th index, we don't want that to append to the new string
+				if(i!= 0)
 					result.append(" ");
 			}
 			else
@@ -35,6 +91,7 @@ public class ReverseWordsInAString {
 			}
 		}
 
+		// For the last word
 		while(!stack.isEmpty())
 		{
 			result.append(stack.pop());
@@ -43,76 +100,5 @@ public class ReverseWordsInAString {
 		return result.toString();
 	}
 
-	public static String reverseWords2(String s) {
-		String[] parts = s.trim().split("\\s+");
-		StringBuilder out = new StringBuilder();
-
-		if (parts.length > 0) 
-		{
-			for (int i = parts.length - 1; i > 0; i--) 
-			{
-				out.append(parts[i]+ " ");
-			}
-
-			// Last word in the end to avoid extra backspace
-			out.append(parts[0]);
-		}
-		return out.toString();
-	}
-
-	// GeeksforGeeks method
-	public char[] reverse(char[] arr, int i, int j) 
-	{
-		while (i < j) 
-		{
-			char tmp = arr[i];
-			arr[i++] = arr[j];
-			arr[j--] = tmp;
-		}
-		return arr;
-	}
-
-	public static String reverseWords(String s) 
-	{
-		if(s == null) 
-			return "";
-
-		int i = 0;
-		String newStr = "";
-		String word = "";
-		while(i<s.length())
-		{
-			char c = s.charAt(i);
-			if(c == ' ')
-			{
-				// It means it is a continuing string, we just need to appeand the word
-				if(newStr != "" && word != "") 
-					newStr = word + " " + newStr; // Notice the order here, we are placing word ahead of the new string
-
-				// It means this space occurs after the first word
-				if(newStr == "" && word != "") 
-					newStr = word;
-				
-				// We are done with append, reset the word
-				else
-					word = "";
-			}
-
-			// Word formation takes place here
-			else
-			{
-				word += c;
-			}
-
-			i++;
-		}
-		
-		if(newStr != "" && word != "")
-			newStr = word + " " + newStr;
-		if(newStr == "" && word != "")
-			newStr = word;
-
-		return newStr;
-	}
-
+	
 }

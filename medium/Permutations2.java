@@ -50,29 +50,29 @@ public class Permutations2 {
 		if (begin >= nums.length) 
 		{
 			List<Integer> list = new ArrayList<Integer>();
-			
+
 			for (int n : nums) 
 			{
 				list.add(n);
 			}
-			
+
 			result.add(list);
 			return;
 		}
-		
+
 		for (int i = begin; i < nums.length; i++) 
 		{
 			if (i != begin && nums[begin] == nums[i]) 
 			{
 				continue;
 			}
-			
+
 			swap(nums, begin, i);
 			permutating(Arrays.copyOf(nums, nums.length), begin+1);
-			
+
 			// My previous logic  of backswapping works perfectly fine, however, gives TLE here.
 			// So, basically remember this continue block, and you are good to go for the interview.
-			
+
 			// Here we are sending the copy of arrays, so back swaping is not necessary
 			// swap(nums, begin, i);
 		}

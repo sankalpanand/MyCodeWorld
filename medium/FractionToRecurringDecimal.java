@@ -5,24 +5,22 @@ import java.util.Map;
 
 public class FractionToRecurringDecimal {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) 
+	{
 		int b = 1;
 		int a = -2147483648;
-		
-		
-		System.out.println(fractionToDecimal(a,b));
-
+		System.out.println(fractionToDecimal(22,7));
 	}
 
-	public static String fractionToDecimal(int numerator, int denominator) {
+	public static String fractionToDecimal(int numerator, int denominator) 
+	{
 
 		if(numerator == 0) return "0";
 
 		StringBuilder sb = new StringBuilder();
 
 		// Append Sign
-		String sign = ((numerator > 0) ^ (denominator>0)) == false ? "" : "-";
+		String sign = ((numerator>0) ^ (denominator>0)) == false ? "" : "-";
 		sb.append(sign);
 		
 		// Remove signs from number
@@ -56,6 +54,7 @@ public class FractionToRecurringDecimal {
 				int index = map.get(numeratorLong);
 
 				sb.insert(index, "(");
+				
 				// No need to append the number. It has already been appended outside while loop.
 				sb.append(")");
 				break;

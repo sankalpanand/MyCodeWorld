@@ -53,7 +53,7 @@ public class SurroundedRegions
 		// Step 2: Call helper() for reverting all '-' lying on the edges to 'O'. 
 		// This helper will go deeper to check and convert - back to 0.
 		// Helper is a recursive function which starts from the given node and make DFS traversals using stack
-		// If I don't use stack, but use recursion, I will run into StackOverflow issues
+		// If I use recursion instead of a stack, I will run into StackOverflow issues
 
 		// Top
 		for(int i=0; i<N; i++)
@@ -94,8 +94,8 @@ public class SurroundedRegions
 		{
 			Pair p = stack.pop();
 			
-			int newRow = p.first;
-			int newCol = p.second;
+			int newRow = p.row;
+			int newCol = p.col;
 
 			board[newRow][newCol] = newVal;
 
@@ -120,11 +120,13 @@ public class SurroundedRegions
 	}
 }
 
-class Pair {
-	public int first;
-	public int second;
-	public Pair(int f, int s) {
-		first = f;
-		second = s;
+class Pair 
+{
+	public int row;
+	public int col;
+	public Pair(int r, int c) 
+	{
+		row = r;
+		col = c;
 	}
 }

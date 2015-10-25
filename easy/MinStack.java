@@ -5,46 +5,58 @@ import java.util.Stack;
 // This solution involves pushing the minimum element onto the stack
 class MinStack
 {
-	int min = Integer.MAX_VALUE;
-	Stack<Integer> stack = new Stack<>();
+	long min;
+	Stack<Long> stack;
 
-	public void push(int x)
+	public MinStack()
 	{
-		if(x<=min)
-		{
-			stack.push(min);
-			min = x;
-		}
-
-		stack.push(x);
+		stack=new Stack<>();
 	}
 
-	public void pop()
+	public void push(int x) 
 	{
-		if(stack.peek() == min)
+		// This is the case for first element - Update min and push 0 on stack
+		if (stack.isEmpty())
 		{
-			stack.pop();
-			min = stack.peek();
-			stack.pop();
+			stack.push(0L);
+			min=x;
 		}
+
+		// Subsequent elements- Push the difference. If incoming less than min, update min.
 		else
 		{
-			stack.pop();
+			stack.push(x-min);
+			
+			if (x<min) 
+				min=x;
 		}
+	}
 
-		if(stack.isEmpty())
-			min = Integer.MAX_VALUE;
+	public void pop() 
+	{
+		if (stack.isEmpty()) 
+			return;
+
+		long pop=stack.pop();
+
+		if (pop<0)  
+			min=min-pop;
 
 	}
 
-	public int top()
+	public int top() 
 	{
-		return stack.peek();
+		long top = stack.peek();
+		
+		if (top>0)
+			return (int)(top+min);
+		else
+			return (int)(min);
 	}
 
-	public int getMin()
+	public int getMin() 
 	{
-		return min;
+		return (int) min;
 	}
 
 }

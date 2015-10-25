@@ -66,10 +66,10 @@ public class Permutations {
 			swap(nums, begin, i);
 
 			// Ek baar swap karne ke baad hum ab next index se chaalu karenge
-			helper(Arrays.copyOf(nums, nums.length), begin+1);  
+			helper(nums, begin+1);  
 
-			// Using the logic from Permutation 2, no need to swap it back.
-			// swap(nums, begin, i);
+			// Wapas swap karo to restore the array for next i'th iteration
+			swap(nums, begin, i);
 		}
 	}
 
