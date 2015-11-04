@@ -29,7 +29,11 @@ public class ReverseInteger {
 
 		return num;
 
-		/*if(x==0) return 0;
+	}
+	
+	public static int reverse1(int x) 
+	{
+		if(x==0) return 0;
 
 		boolean ifPositive = true;
 		if(x<0) { ifPositive = false; x = x * (-1); }
@@ -43,7 +47,7 @@ public class ReverseInteger {
 		}
 
 		if(!ifPositive) return num * (-1);
-		else return num;*/
+		else return num;
 	}
 
 }

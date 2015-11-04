@@ -8,11 +8,14 @@ public class SwapNodesInPairs {
 	}
 	
 	// Given 1->2->3->4, you should return the list as 2->1->4->3.
-	// My solution - iterative
-    public ListNode swapPairs1(ListNode head) {
+	// My solution - iterative. Draw it on paper.
+    public ListNode swapPairs1(ListNode head) 
+    {
         if(head == null || head.next == null) return head;
+        
         ListNode dummy = new ListNode(0);
         dummy.next = head.next;
+        
         ListNode curr = head;
         ListNode prev = dummy;
         

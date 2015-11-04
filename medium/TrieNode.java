@@ -12,11 +12,6 @@ public class TrieNode
         this.children = new TrieNode[26];
     }
     
-    
-    //////////////////////////////////////
-    
-    
-
 	public void addWord(String word, int index) 
 	{
 		// Since this function will recurse with increasing index, check if the index is now equal to the word length
@@ -43,7 +38,7 @@ public class TrieNode
 
 	public boolean search(String word, int idx) 
 	{
-		// If index is finished, check if this node marks the end of word or not.
+		// Base Case: If index is finished, check if this node marks the end of word or not.
 		if (idx == word.length()) 
 		{
 			return isEndOfWord;

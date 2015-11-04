@@ -3,11 +3,11 @@ package easy;
 public class AddDigits {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		System.out.println(addDigits(11));
 
 	}
-
+	
+	// Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
 	public static int addDigits(int num) {
 
 		int temp = num;

@@ -25,9 +25,25 @@ public class ReverseLinkedList {
 
 
 	}
+	
+	public static ListNode reverseList(ListNode head)
+	{
+		ListNode pre = null;
+		ListNode next = null;
+		
+		while(head != null)
+		{
+			next = head.next;
+			head.next = pre;
+			pre = head;
+			head = next;
+		}
+		
+		return pre;
+	}
 
 
-	public static  ListNode reverseList(ListNode head) {
+	public static  ListNode reverseList2(ListNode head) {
 		if(head == null)
 			return null;
 

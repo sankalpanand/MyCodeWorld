@@ -14,25 +14,21 @@ public class LengthOfLastWord {
 
 	public static int lengthOfLastWord(String s) 
 	{
-		/*String[] arr = s.split(" ");
-		if(arr.length == 0)
-			return 0;
-		int length = arr.length;
-		String lastWord = arr[length - 1];
-		char[] wordChar = lastWord.toCharArray();
-		return wordChar.length;*/
-		
 		int length=s.length();
-		  int res=0;
-		  for(int i=length;i>0;--i){
-		      if(s.charAt(i-1)!=' '){
-		          res++;
-		      }
-		      else if(s.charAt(i-1) ==' '&&res!=0){
-		          return res;
-		      }
-		  }
-		  return res;
+		int res=0;
+		for(int i=length; i>=0; --i)
+		{
+			if(s.charAt(i-1)!=' ')
+			{
+				res++;
+			}
+			// && res!=0 to avoid conditions like 'a '
+			else if(s.charAt(i-1) ==' '&& res!=0)
+			{
+				return res;
+			}
+		}
+		return res;
 	}
 
 }

@@ -52,7 +52,6 @@ public class AddBinary {
 			// This eliminates the need to check if res=2 or res=3
 			res = a ^ b ^ carry;
 			carry = a + b + carry > 1 ? 1:0;
-			int carry2 = a & b & carry; 
 
 			sb.insert(0, res);
 

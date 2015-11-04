@@ -10,8 +10,16 @@ public class ValidParenthesis {
 
 	}
 
-	public boolean isValid(String s) {
-
+	/*
+	Character by character chalo. 
+	Agar opening bracket dikhe, stack pe chadha do.
+	Agar closing bracket dikhe, to stack se peek() karo and check karo opening bracket se.
+		Agar match karta hai, to stack se hata do, aur aage badho.
+		Agar matchi nahi kiya, to false.
+	
+	*/
+	public boolean isValid(String s) 
+	{
 		if(s.length() <= 1) return false;
 
 		Stack<Character> stack = new Stack<Character>();
@@ -34,6 +42,8 @@ public class ValidParenthesis {
 					else
 						return false;
 				}
+				
+				// Try catch handles errors if input is like - "[])"
 				catch(Exception e)
 				{
 					return false;
@@ -67,10 +77,9 @@ public class ValidParenthesis {
 	}
 	
 	// Without stack
-	public boolean isValid2(String s) {
-		
+	public boolean isValid2(String s) 
+	{
 		if(s.length() == 0) return true;
-		
 		if(s.length() % 2 == 1) return false;
 		
 		else

@@ -5,6 +5,39 @@ import java.util.Stack;
 // This solution involves pushing the minimum element onto the stack
 class MinStack
 {
+	public static void main(String[] args)
+	{
+		MinStack obj = new MinStack();
+		obj.push(9);
+		obj.push(7);
+		obj.push(4);
+		obj.push(6);
+		obj.push(5);
+		obj.push(11);
+		obj.push(3);
+		obj.push(8);
+		obj.push(2);
+		
+		System.out.println(obj.stack);
+	}
+	
+	/*
+	
+			Incoming  Stack	Min		Pop	Min
+						
+						
+				2		-1	2			
+				8		5	3			3
+				3		-1	3			3
+				11		7	4			4
+				5		1	4			4
+				6		2	4			4
+				4		-3	4			4
+				7		-2	7			7
+				9		0	9			9
+
+	
+	*/
 	long min;
 	Stack<Long> stack;
 

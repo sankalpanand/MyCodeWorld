@@ -12,8 +12,8 @@ public class KthSmallestElement {
 
 	}
 
-	public int kthSmallest(TreeNode root, int k) {
-
+	public int kthSmallest(TreeNode root, int k) 
+	{
 		int countLeft = count(root.left);
 
 		if(countLeft + 1 == k)
@@ -37,7 +37,8 @@ public class KthSmallestElement {
 	public List<Integer> traversal = new ArrayList<Integer>();
 	int serial;
 
-	public int kthSmallest1(TreeNode root, int k) {
+	public int kthSmallest1(TreeNode root, int k) 
+	{
 		serial = k;
 		inOrderTraversal(root);
 		return traversal.get(k-1);

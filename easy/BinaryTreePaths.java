@@ -7,7 +7,6 @@ public class BinaryTreePaths {
 	List<String> paths = new ArrayList<String>();
     
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 	}
     

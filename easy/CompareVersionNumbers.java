@@ -22,10 +22,10 @@ public class CompareVersionNumbers {
 			for(int i=0; i<longest; i++)
 			{
 				// As long as the number is not finished, parse the digit. If not, assign 0 for that.
-				int ver1 = i<v1.length? Integer.parseInt(v1[i]): 0;
+				int ver1 = i<v1.length? Integer.parseInt(v1[i]) : 0;
 
 				// Do it for the second number also. We will check digits by digits in the next step.
-				int ver2 = i<v2.length? Integer.parseInt(v2[i]): 0;
+				int ver2 = i<v2.length? Integer.parseInt(v2[i]) : 0;
 
 
 				// Here we perform comparison. Remember, if the digits are same, no comparison will take place. We'll move on to the next bit in next iteration.

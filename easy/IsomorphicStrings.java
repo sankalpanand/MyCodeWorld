@@ -1,20 +1,21 @@
 package easy;
 
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class IsomorphicStrings {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		String s1 = "apple";
 		String s2 = "ellpa";
 		System.out.println(isIsomorphic(s1, s2));
 	}
 
-	public static boolean isIsomorphic(String s, String t) 
-	{
+	/*
+    Store the last seen positions of current (i-th) characters in both strings. 
+    If previously stored positions are different then we know that the fact they're occuring in the current i-th position simultaneously is a mistake. 
+    */
+    public static boolean isIsomorphic(String s, String t) {
+        
 		// We take twice the ascii character sized array
 		int[] m = new int[512];
 
@@ -23,7 +24,13 @@ public class IsomorphicStrings {
 			if (m[s.charAt(i)] != m[t.charAt(i)+256]) 
 				return false;
 
-			m[s.charAt(i)] = m[t.charAt(i)+256] = i+1;
+            // We are storing i+1 because the default value is zero. If we store zero, then it will always match even if it is a mismatch.
+            // For example input = aa, ab. Second time check mein a par jo value hai, wahi b par bhi milni chahiye.
+            // Ideally b zero hoga but a pe kuchh value store honi chahiye first time se.
+            // But, since first time pe humne 0 hi store kiya tha, to ye test case capture nahi hoga. 
+            // Isliye hum 0 store karne se bach rahe hain.
+			m[s.charAt(i)] =  i+1;
+			m[t.charAt(i)+256] = i+1;
 		}
 		return true;
 	}

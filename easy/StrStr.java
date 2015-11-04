@@ -21,23 +21,33 @@ public class StrStr {
 	}
 
 	// Order of mn
-	public static int strStr1(String haystack, String needle) 
+	/*
+	DO loop leke chalo. Bahar wala haystack ko control karega, andar waala needle ko.
+	It is interesting to note in this program that it doesn't have a compilation error.
+	*/
+	public int strStr2(String haystack, String needle) 
 	{
-		for (int i = 0; ; i++) 
+        for (int i = 0; ; i++) 
 		{
 			for (int j = 0; ; j++) 
 			{
+			    // It means, neither break; executed nor return -1 occured.
+			    // By that time j++ went on.. and now j has reached needle length.
+			    // It means, match occurred.
 				if (j == needle.length()) 
 					return i;
-
+                
+                // it means, i is anchored and while j moving forward we hit the boundary of haystack
 				if (i + j == haystack.length()) 
 					return -1;
-
+                
+                // i is anchored. Now it is j'th character in needle and j'th character from i in haystack
+                // If mismatch occurs, break the anchor. Proceed to next index.
 				if (needle.charAt(j) != haystack.charAt(i + j)) 
 					break;
 			}
 		}
-	}
+    }
 
 	// KMP Algorithm - Order of m + n
 	/**
@@ -131,49 +141,5 @@ public class StrStr {
 		}
 		return lps;
 	}
-
-
-	public static int strStr2(String haystack, String needle) 
-	{
-		if (needle.length() == 0) return 0;
-		if (needle.length() <= haystack.length()) 
-		{
-			int[] f = failureFunction(needle.toCharArray());
-			int i = 0, j = 0;
-
-			while (i < haystack.length()) 
-			{
-				if (haystack.charAt(i) == needle.charAt(j)) 
-				{
-					i++; j++;
-					if (j == needle.length()) return i-j;
-				} 
-
-				else if (j > 0) j = f[j];
-				else i++;
-			}
-		}
-
-		return -1;
-	}
-
-	private static int[] failureFunction(char[] str) 
-	{
-
-		int[] f = new int[str.length + 1];
-		for (int i = 2; i < f.length; i++) 
-		{
-			int j = f[i-1];
-
-			while (j > 0 && str[j] != str[i-1]) 
-				j = f[j];
-
-			if (j > 0 || str[j] == str[i-1]) 
-				f[i] = j+1;
-		}
-
-		return f;
-	}
-
 
 }

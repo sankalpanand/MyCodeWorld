@@ -6,7 +6,7 @@ public class RemoveLinkedListElement {
 		// TODO Auto-generated method stub
 
 		ListNode head = GenerateEvenLL();
-		ListNode newHead =  removeElements1(head, 1);
+		ListNode newHead =  removeElements(head, 1);
 
 	}
 
@@ -32,50 +32,9 @@ public class RemoveLinkedListElement {
 
 		return node1;
 	}
-	
-	public static ListNode removeElements2(ListNode head, int val) 
-	{
-		/*if (head == null) return null;
-        head.next = removeElements2(head.next, val);
-        return head.val == val ? head.next : head;*/
-		
-		// Base case
-		if(head == null)
-            return null;
-		
-		// At first we are going till the end
-        head.next = removeElements2(head.next, val);
-        
-        // If the value matches, we return the next node to the calling function
-        if(head.val == val)
-            return head.next;
-        
-        // If the value is different, we return the original head node to the calling function
-        else
-            return head;
-	}
-	
-	public static ListNode removeElements3(ListNode head, int val) 
-	{
-		if (head == null) return null;
-	    ListNode pointer = head;
-	    while (pointer.next != null) 
-	    {
-	        if (pointer.next.val == val) 
-	        	pointer.next = pointer.next.next;
-	        
-	        else 
-	        	pointer = pointer.next;
-	    }
-	    return head.val == val ? head.next : head;
-	}
-	
-	//public static ListNode removeElements4(ListNode head, int val) 
-	{
-		
-	}
 
-	public static ListNode removeElements1(ListNode head, int val) 
+	// Iterative- Start with the head and the next node. Keep moving until next is not null. Remove elements.
+	public static ListNode removeElements(ListNode head, int val) 
 	{
 		if(head == null) return null;
 
@@ -97,6 +56,46 @@ public class RemoveLinkedListElement {
 		if((head.val == val)) head = head.next;
 
 		return head;
+	}
+
+	// Recursive solution
+	public static ListNode removeElements2(ListNode head, int val) 
+	{
+		/*if (head == null) return null;
+	        head.next = removeElements2(head.next, val);
+	        return head.val == val ? head.next : head;*/
+
+		// Base case
+		if(head == null)
+			return null;
+
+		// At first we are going till the end
+		head.next = removeElements(head.next, val);
+
+		// If the value matches, we return the next node to the calling function
+		if(head.val == val)
+			return head.next;
+
+		// If the value is different, we return the original head node to the calling function
+		else
+			return head;
+	}
+
+
+	public static ListNode removeElements3(ListNode head, int val) 
+	{
+		if (head == null) return null;
+		ListNode pointer = head;
+
+		while (pointer.next != null) 
+		{
+			if (pointer.next.val == val) 
+				pointer.next = pointer.next.next;
+
+			else 
+				pointer = pointer.next;
+		}
+		return head.val == val ? head.next : head;
 	}
 
 	public static void PrintLL(ListNode head)

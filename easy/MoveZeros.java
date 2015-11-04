@@ -7,24 +7,27 @@ public class MoveZeros {
 
 	}
 	
+	// Q- Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 	// We keep running two pointers from 0th index
     // Whenever a 0 is met, the fast pointer will run ahead leaving 0s in between
     // in this case, whenever a non zero element is met, swap both pointer's values.
-    public void moveZeroes(int[] nums) {
-        int last=0;
-        int curr=0;
+    public void moveZeroes(int[] nums) 
+    {
+        int writeHere = 0;
+        int readHere=0;
         
-        while(curr<nums.length)
+        while(readHere < nums.length)
         {
-            if(nums[curr] != 0)
+            if(nums[readHere] != 0)
             {
-                int temp = nums[curr];
-                nums[curr] = nums[last];
-                nums[last] = temp;
+                int temp = nums[readHere];
+                nums[readHere] = nums[writeHere];
+                nums[writeHere] = temp;
                 
-                last++;
+                writeHere++;
             }
-            curr++;
+            
+            readHere++;
         }
     }
 

@@ -57,19 +57,19 @@ public class SurroundedRegions
 
 		// Top
 		for(int i=0; i<N; i++)
-			if(board[0][i] == '-') helper(board, 0, i, '-', 'O');
+			if(board[0][i] == '-') helper(board, 0, i, '-');
 
 		// Right    
 		for(int i=0; i<M; i++)
-			if(board[i][N-1] == '-') helper(board, i, N-1, '-', 'O'); 
+			if(board[i][N-1] == '-') helper(board, i, N-1, '-'); 
 
 		// Bottom
 		for(int i=0; i<N; i++)
-			if(board[M-1][i] == '-') helper(board, M-1, i, '-', 'O');  
+			if(board[M-1][i] == '-') helper(board, M-1, i, '-');  
 
 		// Left
 		for(int i=0; i<M; i++)
-			if(board[i][0] == '-') helper(board, i, 0, '-', 'O'); 
+			if(board[i][0] == '-') helper(board, i, 0, '-'); 
 
 
 		// Step 3: Capture - Change the interior '-' to X as is required
@@ -85,7 +85,7 @@ public class SurroundedRegions
 	}
 
 	// This method will convert - to 0 and dig deeper
-	public static void helper(char[][] board, int row, int col, char prevVal, char newVal)
+	public static void helper(char[][] board, int row, int col, char prevVal)
 	{	
 		Stack<Pair> stack = new Stack<Pair>();
 		stack.push(new Pair(row, col));
@@ -97,7 +97,7 @@ public class SurroundedRegions
 			int newRow = p.row;
 			int newCol = p.col;
 
-			board[newRow][newCol] = newVal;
+			board[newRow][newCol] = 'O';
 
 			// Now, send a recursive call to all its neighbors
 			// In an ideal island problem, there are 8 neighbors. But here in leetcode, we are considering only 4 neighbors.
@@ -111,8 +111,8 @@ public class SurroundedRegions
 				int r = newRow + rowNbr[i];
 				int c = newCol + colNbr[i];
 
-				// Validate those adjacent nodes and also that the value should not be a already converted O. 
-				if(!(r < 0 || r >= M || c < 0 || c >=N) && board[r][c] == '-')
+				if(!(r < 0 || r >= M || c < 0 || c >=N) // Agar boundary ke andar hai 
+						&& board[r][c] == '-') 			// Aur valid "-" hai, to stack par push kar do
 					stack.push(new Pair(r, c));
 				
 			}      			

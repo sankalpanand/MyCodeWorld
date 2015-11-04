@@ -9,30 +9,32 @@ public class ThreeSumClosest {
 
 	}
 
-	// http://stackoverflow.com/questions/2070359/finding-three-elements-in-an-array-whose-sum-is-closest-to-an-given-number
+	/*
+	Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. 
+	Return the sum of the three integers. 
+	You may assume that each input would have exactly one solution.	
+	 */
+
 	// https://leetcode.com/discuss/6438/a-n-2-solution-can-we-do-better
 	// We can fix one element and move two pointers in the remaining array, one from front and other from back.
-	public int threeSumClosest(int[] nums, int target) {
-
-		int[] v = nums; // I didn't wanted to disturb original array.		
-		int n = 0;
+	public int threeSumClosest(int[] nums, int target) 
+	{
 		int ans = 0;
 		int sum=0;
 
-		Arrays.sort(v);
+		Arrays.sort(nums);
 
 		// If less then 3 elements then return their sum
 		if(nums.length <= 3)
 		{
-			for (int i=0; i<v.length; i++) 
+			for (int i=0; i<nums.length; i++) 
 			{
-				sum = sum + v[i];
+				sum = sum + nums[i];
 			}
 			return sum;
 		}
 
 
-		n = v.length;
 
 		/* v[0] v[1] v[2] ... v[i] .... v[j] ... v[k] ... v[n-2] v[n-1]
 		 *                    v[i]  <=  v[j]  <= v[k] always, because we sorted our array. 
@@ -44,15 +46,15 @@ public class ThreeSumClosest {
 		 * Simillarly if sum of the triplet is less then the target then we
 		 * increase out sum by taking a larger number, i.e. J = J + 1.
 		 */
-		ans = v[0] + v[1] + v[2];
-		for (int i = 0; i < n-2; i++) 
+		ans = nums[0] + nums[1] + nums[2];
+		for (int i = 0; i < nums.length - 2; i++) 
 		{
-			int j = i + 1; // Start right after i
-			int k = n - 1; // Start at the end of the array
+			int low = i + 1; // Start right after i
+			int high = nums.length - 1; // Start at the end of the array
 
-			while (j < k) // Continue as long as j and k do not cross each other 
+			while (low < high) // Continue as long as j and k do not cross each other 
 			{
-				sum = v[i] + v[j] + v[k]; 
+				sum = nums[i] + nums[low] + nums[high]; 
 
 				// We have to take the minimum difference.
 				// So we took one as initial in variable ans.
@@ -66,18 +68,17 @@ public class ThreeSumClosest {
 				}
 
 				// We didn't match. Lets get a little closer.
-				// If the sum was too big, then decrement k.
-				// If the sum was too small, increment j
+				// If the sum was too big, then decrement high.
+				// If the sum was too small, increment low.
 				if(sum > target)
-					k--;
+					high--;
 				else
-					j++;
+					low++;
 			}
 
-			// When the while-loop finishes, j and k have passed each other and there's
+			// When the while-loop finishes, low and high would have passed each other and there's
 			// no more useful combinations that we can try with this i.
 		}
 		return ans;
 	}
-
 }

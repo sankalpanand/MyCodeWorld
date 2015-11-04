@@ -7,7 +7,7 @@ public class PathSum {
         
         if(root == null) return false;
         
-        // Leaf case
+        // If leaf is reached, and the sum is reduced to zero, then this is the path :)
         if(root.left == null && root.right == null && root.val == sum) return true;
         
         boolean left = hasPathSum(root.left, sum - root.val);

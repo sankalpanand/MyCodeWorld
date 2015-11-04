@@ -1,78 +1,71 @@
 package easy;
 
-import java.util.Stack;
 
-public class PalindromeLinkedList {
+public class PalindromeLinkedList 
+{
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) 
+	{
 		ListNode head = GenerateEvenLL();
-
 		System.out.println(isPalindrome(head));
-
-
 	}
 
-	public static boolean isPalindrome(ListNode head) {
-
-		// Get length
-		ListNode temp = head;
-		int length = 0;
-		while(temp != null)
+	public static boolean isPalindrome(ListNode head) 
+    {
+        if(head == null || head.next == null) 
+            return true;
+    
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        // This while loop will continue till 3rd last node and
+        // fast.next != null  => ODD cases
+        // fast.next.next != null => Even cases
+        while(fast.next != null && fast.next.next != null)
+        {
+        	slow = slow.next;
+        	fast = fast.next.next;
+        }
+        
+        // After coming out of this while loop, situation will be like
+        // Even case:
+        // 0 -- 0 -- 0 -- 0 (slow) -- 0 -- 0 -- 0 (fast) -- 0 -- null
+        // slow.next will give us the starting node of the second half
+        // Odd case:
+        // 0 -- 0 -- 0 -- 0 (slow) -- 0 -- 0 -- 0 (fast) -- null
+        // Slow.next will still give us the starting node of the second half
+        
+        slow.next = ReverseLinkedList(slow.next);
+        
+        // Move into the second half
+        slow = slow.next;
+        
+        // Start comparing
+        while(slow != null)
+        {
+        	if(head.val != slow.val)
+        		return false;
+        	head = head.next;
+        	slow = slow.next;
+        }
+        
+        return true;          
+    }
+	
+	public static ListNode ReverseLinkedList(ListNode head)
+	{
+		ListNode pre = null;
+		ListNode next = null;
+		
+		while(head != null)
 		{
-			length++;
-			temp = temp.next;
+			next = head.next;
+			head.next = pre;
+			pre = head;
+			head = next;
 		}
 		
-		// System.out.println(length);
-		
-		if(length == 0)
-			return true;
-		
-		if(length == 1)
-			return true;
-		
-
-		int index = 1;
-		int mid = length/2;
-
-		temp = head;
-		Stack<Integer> stack = new Stack<Integer>();
-
-
-		boolean result = true;
-		while(index <= length)
-		{
-			if(index <= mid)
-			{
-				stack.push(temp.val);
-			}
-
-			if(index > mid)
-			{
-				int element = stack.pop();
-				if(element != temp.val)
-				{
-					return false;
-				}
-			}
-			
-			if(index == mid && length % 2 != 0)
-			{
-				temp = temp.next.next;
-				index = index +2;
-			}
-			else
-			{
-				temp = temp.next;
-				index++;
-			}
-			
-			
-			
-		}
-
-		return result;
+		return pre;
 	}
 	
 	public static ListNode GenerateEvenLL()

@@ -5,35 +5,38 @@ import java.util.List;
 
 public class UniqueBST2 {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		UniqueBST2 obj = new UniqueBST2();
-		System.out.println(obj.generateTrees(5));
+	public static void main(String[] args) 
+	{
+		System.out.println(generateTrees(5));
 	}
 
-	public List<TreeNode> generateTrees(int n) 
+	// http://www.geeksforgeeks.org/construct-all-possible-bsts-for-keys-1-to-n/
+	public static List<TreeNode> generateTrees(int n) 
 	{
 		return generateSubtrees(1, n);
 	}
 
-	private List<TreeNode> generateSubtrees(int s, int e) 
+	private static List<TreeNode> generateSubtrees(int start, int end) 
 	{
 		List<TreeNode> res = new LinkedList<TreeNode>();
-		
-		if (s > e) 
+
+		// BASE CASE
+		if (start > end) 
 		{
 			res.add(null); // empty tree
 			return res;
 		}
 
-		for (int i = s; i <= e; ++i) 
+		// Now we need to construct roots from i=start to n and add LSTs and RSTs to them.
+		for (int i = start; i <= end; ++i) 
 		{
-			List<TreeNode> leftSubtrees = generateSubtrees(s, i - 1);
-			List<TreeNode> rightSubtrees = generateSubtrees(i + 1, e);
+			List<TreeNode> leftSubtrees = generateSubtrees(start, i - 1);
+			List<TreeNode> rightSubtrees = generateSubtrees(i + 1, end);
 
+			// Create a tree for every pair of left and right subtree and add the tree to list
 			for (TreeNode left : leftSubtrees) 
 			{
-				for (TreeNode right : rightSubtrees)
+				for (TreeNode right : rightSubtrees) 
 				{
 					TreeNode root = new TreeNode(i);
 					root.left = left;

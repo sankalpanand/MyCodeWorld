@@ -9,10 +9,98 @@ public class WordLadder {
 		// TODO Auto-generated method stub
 		Set<String> wordDict = new HashSet<>();
 		wordDict.add("hot");
+		//wordDict.add("dot");
 		wordDict.add("dog");
-		// wordDict.add("c");
+		wordDict.add("dbg");
+		//wordDict.add("lot");
+		//wordDict.add("log");
+
+		//System.out.println(ladderLength("hit", "cog", wordDict));
 		System.out.println(ladderLength("hot", "dog", wordDict));
 
+	}
+
+	// BFS, two-end method - 37 ms
+	// Traverse the path simultaneously from start node and end node, and merge in the middle
+	// the speed will increase (logN/2)^2 times compared with one-end method
+	public static int ladderLength(String beginWord, String endWord, Set<String> wordDict) 
+	{
+		int len = 1;
+		Set<String> beginSet = new HashSet<>();
+		Set<String> endSet = new HashSet<>();
+		Set<String> visited = new HashSet<>();
+
+		beginSet.add(beginWord);
+		endSet.add(endWord);
+
+		visited.add(beginWord);
+		visited.add(endWord);
+
+		while (!beginSet.isEmpty() && !endSet.isEmpty()) 
+		{
+			// add new words to smaller set to achieve better performance
+			boolean isBeginSetSmall = beginSet.size() < endSet.size();
+			Set<String> small = isBeginSetSmall ? beginSet : endSet;
+			Set<String> big = isBeginSetSmall ? endSet : beginSet;
+
+
+			Set<String> next = new HashSet<>();
+
+			// Ye wala while() iteration ek word dhoondh nikaalega. Isliye len badha do.
+			// Agar ye iteration mein ek bhi word na mila, iska matlab ladder nahi ban sakti.
+			len++;
+
+			// Iterate over each word in smaller set
+			for (String str : small) 
+			{
+				// Iterate over each character of the each word in the smaller set
+				for (int i = 0; i < str.length(); i++) 
+				{
+					// Generate letters from a to z
+					for (char ch = 'a'; ch <= 'z'; ch++) 
+					{
+						// Copy the word so that we can form a new word out of it
+						StringBuilder sb = new StringBuilder(str);
+
+						// Set the char a-z at 0th index, then 1st index and so on
+						sb.setCharAt(i, ch);
+						String word = sb.toString();
+
+						// If the big set has this word, it means the ladder is complete. Return length.
+						// Remember we are iterating over "small" set. So here we check for "big"
+						if (big.contains(word)) 
+						{
+							return len;
+						}
+
+						// Ladder not complete. Check if the newly formed word exists in the dictionary
+						// To avoid going back, check if it is not there in the visited.
+						if (wordDict.contains(word) && !visited.contains(word)) 
+						{
+							// Mark the word as visited
+							visited.add(word);
+
+							// Add that word to "next"
+							next.add(word);
+						}
+					} // All A-Z characters replaced
+				} // All character positions replaced
+			} // All small set words checked
+
+
+			// This is necessary for those input sets where there is no ladder formation.
+			// If there was no match, then it is necessary for the while() loop to break.
+			// If we don't reset these sets, they will always have some elements and will never terminate
+			if (isBeginSetSmall) 
+			{
+				beginSet = next;
+			} 
+			else 
+			{
+				endSet = next;
+			}
+		}
+		return 0;
 	}
 
 
@@ -22,7 +110,7 @@ public class WordLadder {
 	 * If a word is matched, we remove that word from the dictionary and add it into our added dictionary.
 	 *  
 	 * */
-	public static int ladderLength1(String beginWord, String endWord, Set<String> wordDict) {
+	public static int ladderLength2(String beginWord, String endWord, Set<String> wordDict) {
 		Set<String> added = new HashSet<String>(); // Set to add all the found words
 		Set<String> remaining = wordDict; // The original dictionary
 
@@ -75,7 +163,7 @@ public class WordLadder {
 	}
 
 
-	public static int ladderLength(String start, String end, Set<String> dict) {
+	public static int ladderLength3(String start, String end, Set<String> dict) {
 		Set<String> set1 = new HashSet<String>();
 		Set<String> set2 = new HashSet<String>();
 
@@ -90,7 +178,7 @@ public class WordLadder {
 			return 0;
 
 		// If I remove this line, then also the solution will be accepted. 
-        // However, since we try combinations for each word, if we go with the set with less number of words, it will increase performance.
+		// However, since we try combinations for each word, if we go with the set with less number of words, it will increase performance.
 		if (set1.size() > set2.size()) 
 			return helper(dict, set2, set1, level);
 
@@ -107,7 +195,7 @@ public class WordLadder {
 		for (String str : set1) 
 		{
 			char[] charStr = str.toCharArray();
-			
+
 			// For each character in the word
 			for (int i = 0; i < str.length(); i++) 
 			{
@@ -134,7 +222,7 @@ public class WordLadder {
 				}
 			}
 		}
-		
+
 		// Till this point, you have created a set which can be reached through the start node.
 		// For next iteration, make this new set as destination and make the set2 as starting set
 		return helper(dict, set2, set, level + 1);

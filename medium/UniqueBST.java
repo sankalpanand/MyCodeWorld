@@ -10,10 +10,20 @@ public class UniqueBST {
 		System.out.println(numTrees(5));
 	}
 	
-	// https://leetcode.com/discuss/24282/dp-solution-in-6-lines-with-explanation-f-i-n-g-i-1-g-n-i
-    // G(n) = G(0) * G(n-1) + G(1) * G(n-2) + … + G(n-1) * G(0)
-	// F(3,7) = G(2) * G(4)
+	
 	/*
+	 	Given n, how many structurally unique BST's (binary search trees) that store values 1...n?
+	 	
+	 	https://leetcode.com/discuss/24282/dp-solution-in-6-lines-with-explanation-f-i-n-g-i-1-g-n-i
+	 	https://www.youtube.com/watch?v=YDf982Lb84o
+     	
+	 	G(n): the number of unique BST for a sequence of length n.
+	 	F(i, n), 1 <= i <= n: the number of unique BST, where the number i is the root of BST, and the sequence ranges from 1 to n.
+	 	For examle, F(3,7) = G(2) * G(4)
+	 	
+	 	G(n) = F(1, n) + F(2, n) + ... + F(n, n)
+	 		 = G(0) * G(n-1) + G(1) * G(n-2) + … + G(n-1) * G(0)
+	 		 	
 	 	G[0]*G[1]	G[1]*G[0]	
 		G[0]*G[2]	G[1]*G[1]	G[2]*G[0]	
 		G[0]*G[3]	G[1]*G[2]	G[2]*G[1]	G[3]*G[0]	
@@ -23,11 +33,15 @@ public class UniqueBST {
     public static int numTrees(int n) 
     {
         int [] G = new int[n+1];
+        
+        // Only one combination to construct a BST out of a sequence of length 1 (only a root) or 0 (empty tree). 
         G[0] = G[1] = 1;
     
+        // Iterate for the remaining from 2 till n
         for(int i=2; i<=n; ++i) 
         {
-            for(int j=1; j<=i; ++j) 
+        	// Every i'th level will have i'th components
+            for(int j=1; j<=i; ++j)
             {
             	System.out.print("G[" + (j-1) + "]" + "*" + "G[" + (i-j) + "]\t");
                 G[i] = G[i] + G[j-1] * G[i-j];
@@ -37,38 +51,4 @@ public class UniqueBST {
     
         return G[n];
     }
-
-	public List<TreeNode> generateTrees(int n) 
-	{
-	    return generateSubtrees(1, n);
-	}
-	
-	private List<TreeNode> generateSubtrees(int start, int end) 
-	{
-	    List<TreeNode> res = new LinkedList<TreeNode>();
-	    if (start > end) 
-	    {
-	        res.add(null); // empty tree
-	        return res;
-	    }
-	
-	    for (int i = start; i <= end; ++i) 
-	    {
-	        List<TreeNode> leftSubtrees = generateSubtrees(start, i - 1);
-	        List<TreeNode> rightSubtrees = generateSubtrees(i + 1, end);
-	
-	        for (TreeNode left : leftSubtrees) 
-	        {
-	            for (TreeNode right : rightSubtrees) 
-	            {
-	                TreeNode root = new TreeNode(i);
-	                root.left = left;
-	                root.right = right;
-	                res.add(root);
-	            }
-	        }
-	    }
-	    return res;
-	}
-
 }
