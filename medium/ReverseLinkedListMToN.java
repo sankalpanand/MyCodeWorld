@@ -3,75 +3,64 @@ package medium;
 public class ReverseLinkedListMToN {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		ListNode headN = new ListNode(1);
+		headN.AddToTail(2);
+		headN.AddToTail(3);
+		headN.AddToTail(4);
+		headN.AddToTail(5);
+		headN.AddToTail(6);
+		headN.AddToTail(7);
+		headN.AddToTail(8);
+		headN.AddToTail(9);
+		headN.AddToTail(10);
+		headN.AddToTail(11);
+		
+		reverseBetween(headN, 4, 8);
 
 	}
 	
-	/*
-    dummy->1->2->3->4->5->NULL
     
-    m=2, n=4
-    
-    Target:
-    dummy->1->4->3->2->5->NULL
-    
-    
-    Step 1:
-    dummy->1->3->2->4->5->NULL
-    
-    Step 2:
-    dummy->1->4->3->2->5->NULL
-    
-    Algorithm:
-    Take pre = last element which won't be affected. Here 1. We need this whenever we are bring last element of the window to the first.
-    Start = first element from where this will start. Here m.
-    Then = the last element in the window which is going to be head. So, start.next.
-    
-    Step 1: Delink the element which you want to move first. Here 4 in the first iteration.
-    start.next = then.next
-    dummy->1->2->4->5->NULL
-    
-    Step 2: Move this delinked node to the front of the window. Make it point to the first element in the window. Here 2.
-    then.next = pre.next
-    dummy->1->2->4->5->NULL
-              ^
-              |
-              3
-    
-    Step 3: Delink start (2) from pre. And point it to the new hanging node (3).
-    pre.next = then
-    dummy->1->3->2->4->5->NULL
-    
-    Step 4: We are done with the first iteration. Move 'then'. (3rd node to 4th node)
-    Pre remains the same as we need it when we bring another node from rear to front.
-    Start also remains the same as it's next pointer was changed inside the loop in step 1.
-    
-    */
-    public ListNode reverseBetween(ListNode head, int m, int n) {
-        if(head == null) return head;
+    public static ListNode reverseBetween(ListNode head, int m, int n) 
+    {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         
-        ListNode pre = dummy;
-        
-        for(int i=0; i<m-1; i++)
+        // First, reach till m'th node. You need two pointers from this loop - pre (m-1) and curr (m)'th node  
+        ListNode cur1 = dummy;
+        ListNode pre1 = null;
+        for(int i=0;i<m;i++)
         {
-            pre = pre.next;
-        }
+            pre1 = cur1;
+            cur1 = cur1.next;
+        } // After this loop, curr has reached m'th node and pre is at (m-1)'th node 
+
+        // Reverse
+        ListNode cur2 = cur1;
+        ListNode pre2 = pre1;
+        ListNode nextNode;
         
-        ListNode start = pre.next;
-        ListNode then = start.next;
         
-        for(int i=0; i<n-m; i++)
+        /* It's a standard 4 step link reversal process. Start with 3 pointers- pre, curr, next-
+         * 1- Store next link
+         * 2- Since next is stored separately, break next and face it backwards 
+         * 3&4- Update pre and curr
+        */
+        for(int i=m;i<=n;i++)
         {
-            start.next = then.next;
-            then.next = pre.next;
-            pre.next = then;
-            then = start.next;
+        	nextNode = cur2.next;
+            cur2.next = pre2;
+            pre2 = cur2;
+            cur2 = nextNode;
         }
-        
+
+        /* At the end of the for loop, you need to do 2 thigs- Establish links of the reversed LL
+         * 1- Connect (m-1)'th element to n'th element
+         * 2- Connect m'th element to (n+1)'th element
+        */
+        pre1.next = pre2;
+        cur1.next = cur2;
+
         return dummy.next;
-        
     }
 
 }

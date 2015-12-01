@@ -20,34 +20,32 @@ public class StrStr {
 
 	}
 
-	// Order of mn
-	/*
-	DO loop leke chalo. Bahar wala haystack ko control karega, andar waala needle ko.
-	It is interesting to note in this program that it doesn't have a compilation error.
-	*/
+
 	public int strStr2(String haystack, String needle) 
 	{
-        for (int i = 0; ; i++) 
+		int l1 = haystack.length();
+		int l2 = needle.length();
+		
+		if (l1 < l2) 
 		{
-			for (int j = 0; ; j++) 
+			return -1;
+		} 
+		else if (l2 == 0) 
+		{
+			return 0;
+		}
+		
+		int threshold = l1 - l2;
+		for (int i = 0; i <= threshold; ++i) 
+		{
+			if (haystack.substring(i, i+l2).equals(needle)) 
 			{
-			    // It means, neither break; executed nor return -1 occured.
-			    // By that time j++ went on.. and now j has reached needle length.
-			    // It means, match occurred.
-				if (j == needle.length()) 
-					return i;
-                
-                // it means, i is anchored and while j moving forward we hit the boundary of haystack
-				if (i + j == haystack.length()) 
-					return -1;
-                
-                // i is anchored. Now it is j'th character in needle and j'th character from i in haystack
-                // If mismatch occurs, break the anchor. Proceed to next index.
-				if (needle.charAt(j) != haystack.charAt(i + j)) 
-					break;
+				return i;
 			}
 		}
-    }
+		
+		return -1;
+	}
 
 	// KMP Algorithm - Order of m + n
 	/**
@@ -60,7 +58,7 @@ public class StrStr {
 
 		// O(n)
 		int lps[] = computeTemporaryArray(needle);
-		
+
 		int i=0;
 		int j=0;
 
@@ -108,7 +106,7 @@ public class StrStr {
 	private static int[] computeTemporaryArray(String pattern)
 	{
 		int [] lps = new int[pattern.length()];
-		
+
 		// First point is always 0
 		int j =0;
 

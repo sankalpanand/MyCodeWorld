@@ -2,16 +2,36 @@ package medium;
 
 public class SortedLinkedListToBST2 {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println();
+	public static void main(String[] args) 
+	{
+		SortedLinkedListToBST2 obj = new SortedLinkedListToBST2();
+		ListNode headN = new ListNode(1);
+		headN.AddToTail(2);
+		headN.AddToTail(3);
+		headN.AddToTail(4);
+		headN.AddToTail(5);
+		headN.AddToTail(6);
+		headN.AddToTail(7);
+		headN.AddToTail(8);
+		headN.AddToTail(9);
+		headN.AddToTail(10);
+		headN.AddToTail(11);
+		
+		TreeNode res = obj.sortedListToBST(headN);
+		System.out.println(headN);
+		
+		TreeNode.printNode(res);
 	}
 
 	// http://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/
-    ListNode head;
-    
-    public TreeNode sortedListToBST(ListNode head) {
-        
+	/**The idea is to follow inorder traversal. Go till the deepest level by halving the size at each level. 
+	 * When the size is reduced to zero, then consume the first node and retract by moving the LL head pointer.
+	 * Since it will match inorder traversal, create root now.
+	 * Now that the root is created, form a RST and attach it to the root.
+	 *  */ 
+	ListNode head;
+    public TreeNode sortedListToBST(ListNode head) 
+    {
         int size = Count(head);
         this.head = head;
         System.out.println(size);

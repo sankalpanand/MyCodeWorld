@@ -29,9 +29,9 @@ public class ValidPalindrome {
 	/*
 	 Pichhe se ek char extract karo, aage se bhi karo. 
 	 Dono ko alag alag check karo... Agar isLetterOrDigit nahi hai... to dono pointers ko aage badha doo.
-	 Agar dono character hi hain... tab check karo ki same hain ki nahi. Agar same milte hian to dono pointers badha do.
-	 
+	 Agar dono character hi hain... tab check karo ki same hain ki nahi. Agar same milte hian to dono pointers badha do.	 
 	*/
+	
 	public boolean isPalindrome(String s) 
 	{
 		if (s.isEmpty()) 

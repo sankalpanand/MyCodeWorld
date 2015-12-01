@@ -3,21 +3,21 @@ package easy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompareVersionNumbers {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+public class CompareVersionNumbers 
+{
+	public static void main(String[] args) 
+	{
 		System.out.println(compareVersion("1.0","1.1"));
-		
-		
 	}
 
-	public static int compareVersion(String version1, String version2) {
-		try{
+	public static int compareVersion(String version1, String version2) 
+	{
+		try
+		{
 			String[] v1 = version1.split("\\.");
 			String[] v2 = version2.split("\\.");
 
-			int longest = v1.length > v2.length? v1.length: v2.length;
+			int longest = v1.length > v2.length ? v1.length: v2.length;
 
 			for(int i=0; i<longest; i++)
 			{
@@ -32,11 +32,9 @@ public class CompareVersionNumbers {
 				if(ver1> ver2) return 1;
 				if(ver1 < ver2) return -1;
 
-
 			}
 			return 0;
 		}
-
 
 		catch(Exception e)
 		{

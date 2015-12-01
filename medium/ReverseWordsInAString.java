@@ -36,11 +36,11 @@ public class ReverseWordsInAString {
 			// Words are appended to sentences
 			else
 			{
-				// It means there are already words in the string, we just need to appeand the word
+				// It means there are already words in the string, we just need to append the word
 				if(newStr.length() != 0 && word != "") 
 					newStr.insert(0, word + " "); // Notice the order here, we are placing word ahead of the new string
 
-				// It means this space occurs after the first word
+				// Take care of the first word from the end - This space occurs after the first word
 				if(newStr.length() == 0 && word != "") 
 					newStr.append(word);
 

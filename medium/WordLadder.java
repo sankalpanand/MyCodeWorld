@@ -22,7 +22,7 @@ public class WordLadder {
 
 	// BFS, two-end method - 37 ms
 	// Traverse the path simultaneously from start node and end node, and merge in the middle
-	// the speed will increase (logN/2)^2 times compared with one-end method
+	// The speed will increase (logN/2)^2 times compared with one-end method
 	public static int ladderLength(String beginWord, String endWord, Set<String> wordDict) 
 	{
 		int len = 1;

@@ -1,8 +1,6 @@
 package easy;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ValidAnagram {
 
@@ -12,19 +10,34 @@ public class ValidAnagram {
 
 	}
 	
-	// Step 1: Make an integer array of 26 size
-	// Step 2: While parsing array 1, if any character appears, increase the count of it by 1
-	// Step 3: While parsing array 2, if any character appears, decrease the count of it by 1
-	// Step 4: If integer array has any value that is not zero, Strings are not anagrams
+	// Time efficient
 	public static boolean isAnagram1(String s, String t) 
 	{
-		int[] count = new int[26];
-        for(int i=0; i<s.length(); i++) count[s.charAt(i) - 'a']++;
-        for(int i=0; i<t.length(); i++) count[t.charAt(i) - 'a']--;
-        for(int x : count) if(x!=0) return false;
-        return true;
+		Map<Character, Integer> map = new HashMap<Character, Integer>();
+		for(Character ch : s.toCharArray())
+		{
+			if(map.containsKey(ch))
+				map.put(ch, map.get(ch)+1);
+			else
+				map.put(ch, 1);
+		}
+		
+		for(Character ch : t.toCharArray())
+		{
+			if(map.containsKey(ch))
+			{
+				int count = map.get(ch);
+				if(count == 1) map.remove(ch);
+				else map.put(ch, count-1); 				
+			}
+			else
+				return false;
+		}
+		
+		return map.keySet().size() == 0;
 	}
-
+	
+	// Space efficient
 	public static boolean isAnagram(String s, String t) 
 	{
 		if(s.length() != t.length())
@@ -37,33 +50,17 @@ public class ValidAnagram {
 		
 		char[] sArr = s.toCharArray();
 		char[] tArr = t.toCharArray();
+		
+		Arrays.sort(sArr);
+		Arrays.sort(tArr);
 
-		List<Character> listS = new ArrayList();
-		for(char c : sArr)
-		{
-			listS.add(c);
-		}
-
-		List<Character> listT = new ArrayList();
-		for(char c : tArr)
-		{
-			listT.add(c);
-		}
-
-		Collections.sort(listS);
-		Collections.sort(listT);
-
-		boolean flag = true;
-
+		
 		for(int i=0; i<= s.length() - 1; i++)
 		{
-			if(listS.get(i) != listT.get(i))
-			{
-				return false;
-			}
+			if(sArr[i] != tArr[i]) return false;
 		}
 
-		return flag;
+		return true;
 	}
 
 }

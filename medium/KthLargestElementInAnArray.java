@@ -24,28 +24,28 @@ public class KthLargestElementInAnArray {
 		return helper(nums, len-k, 0, len-1);
 	}
 
-	public static int helper(int[] nums, int k, int start, int end) 
+	public static int helper(int[] nums, int searchIndex, int start, int end) 
 	{
 
 		// Step 1: Partition the array around last element and get position of pivot
 		int pIndex = partition(nums, start, end);
 
 		// Step 2: If position = k, return element
-		if(pIndex == k)
+		if(pIndex == searchIndex)
 		{
 			return nums[pIndex];
 		}
 
 		// Step 3: pIndex usually means that all the elements lesser than it lies towards its left and the ones greater than it lie towards its right. 
 		// Since the search index is less than the pIndex, the search element should be in the LHS.
-		else if(pIndex > k)
+		else if(pIndex > searchIndex)
 		{
-			return helper(nums, k, start, pIndex - 1);
+			return helper(nums, searchIndex, start, pIndex - 1);
 		}
 
 		// Step 4: Since the search index is more than the pIndex, the search element should be in the RHS.
 		else
-			return helper(nums, k, pIndex + 1, end);
+			return helper(nums, searchIndex, pIndex + 1, end);
 
 	}
 

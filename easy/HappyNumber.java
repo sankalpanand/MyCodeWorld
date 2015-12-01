@@ -5,13 +5,21 @@ import java.util.Map;
 
 public class HappyNumber {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) 
+	{
 		System.out.println(isHappy(2));
-
 	}
 
-	public static boolean isHappy(int n) {
+	/*
+	Example: 19 is a happy number
+	12 + 92 = 82
+	82 + 22 = 68
+	62 + 82 = 100
+	12 + 02 + 02 = 1
+	*/
+	
+	public static boolean isHappy(int n) 
+	{
 		int slow = n;
 		int fast = n;
 		
@@ -27,7 +35,7 @@ public class HappyNumber {
 
 			if(slow == fast) return false;
 		}
-		return true ;
+		return true;
 	}
 	
 	public static int sumOfSquaresOfDigits(int n)

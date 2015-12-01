@@ -25,10 +25,13 @@ public class BuyAndSellStock1 {
         // I have taken min price for the A[0] outside.
         for(int i = 1; i < prices.length; i++) 
         {
+        	// Calculate profit if I sell it today
+        	int profitToday = prices[i] - minPrice;
+        	
         	// Max Profit that I can get today is the min Price so far
-            maxProfit = Math.max(maxProfit, prices[i] - minPrice);
+            maxProfit = Math.max(maxProfit, profitToday);
             
-            // Update min price
+            // Also, update min price
             minPrice = Math.min(minPrice, prices[i]);
         }
         

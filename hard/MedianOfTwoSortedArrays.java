@@ -4,172 +4,150 @@ public class MedianOfTwoSortedArrays {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums1 = {100000};
-		int[] nums2 = {100001};
+		// Case 1 - B[j-1] > A[i]
+		int[] A = {2,13,17,30,45};
+		int[] B = {1,12,15,26,38,48,52};		
+		// System.out.println(findMedianSortedArrays(A, B));
+		
+		int[] E = {1};
+		int[] F = {2,3};
+		System.out.println(findMedianSortedArrays(E, F));
 
-		System.out.println(findMedianSortedArrays(nums1, nums2));
+		int[] nums3 = {2, 50, 60, 70, 80};
+		int[] nums4 = {1,12,15,26,38,48,52};		
+		System.out.println(findMedianSortedArrays(nums3, nums4));
 	}
 
-	/*
-	 * 	If n is odd then the median is x[(n-1)/2].
-		If n is even than the median is ( x[n/2] + x[(n/2)-1] ) / 2.
+
+	public static double findMedianSortedArrays(int[] A, int[] B) 
+	{
+		int m = A.length, n = B.length;
+		
+		// Get the medians. 
+		// In case m+n is odd, both l and r will give the same values.
+		// But when m+n is even, m+n will give us two different indices (i,i+1) which we will average
+		int l = (m + n + 1) / 2;
+		int r = (m + n + 2) / 2;
+
+		return (getkth(A, 0, B, 0, l) + getkth(A, 0, B, 0, r)) / 2.0;
+	}
+
+	
+	/**
+	  	Step 1- Calculate midA and midB
+		Step 2- Find out the smaller mid
+		Step 3- Start of only the array with a smaller mid will change. It will move to next. 
+				Start of the array with larger mid will remain unchanged.
+	 */
+	public static double getkth(int[] A, int aStart, int[] B, int bStart, int k) 
+	{
+		// Base Case 1- If A is finished, get k'th element from B
+		if (aStart > A.length - 1) 
+			return B[bStart + k - 1];    
+		
+		// Base Case 2- If B is finished, get k'th element from A
+		if (bStart > B.length - 1) 
+			return A[aStart + k - 1];
+		
+		// Base Case 3- If you are to extract first element, take the minimuum of the two starting elements
+		if (k == 1) 
+			return Math.min(A[aStart], B[bStart]);
+
+		int aMid = Integer.MAX_VALUE, bMid = Integer.MAX_VALUE;
+		
+		// Calculate both the mid elements
+		if (aStart + k/2 - 1 < A.length) 
+			aMid = A[aStart + k/2 - 1]; 
+		
+		if (bStart + k/2 - 1 < B.length) 
+			bMid = B[bStart + k/2 - 1];        
+
+		// REAL PART: Here you test the above logic and pass on the recursive call
+		if (aMid < bMid) 
+			return getkth(A, aStart + k/2, B, bStart, k - k/2);
+		else 
+			return getkth(A, aStart, B, bStart + k/2, k - k/2);
+	}
+	
+
+
+
+
+	/* O (Log (Min(m,n)))
+	 * https://leetcode.com/discuss/15790/share-my-o-log-min-m-n-solution-with-explanation
+	 * In this question, we move our indices on smaller array. 
+	 * We compute some possible partition index for both the arrays and check the corner four values against each other.
+	 * For every comparison, we discard the left part or right part to the pIndex of the smaller array. 
+	 * Thus we get O(log(Min (M,N))) complexity.
+	 * When we get such a partition where all the elements on the left side are larger than the right side, we get our indexes.
 	 * */
-
-	public static double findMedianSortedArrays1(int[] nums1, int[] nums2) {
-		int[] combined = merge(nums1, nums2);
-		double mid = -1;
-
-		if(combined.length % 2 != 0) 
-			mid =  combined[(combined.length - 1)/2];
-		else
-			mid =  (double)(combined[combined.length/2] + combined[(combined.length/2) - 1])/2;
-
-
-		return mid;
-	}
-
-	public static int[] merge(int[] nums1, int[] nums2)
+	public static double findMedianSortedArrays2(int[] A, int[] B) 
 	{
-		// If any array is null, return the other one
-		if(nums1.length == 0) return nums2;
-		else if(nums2.length == 0) return nums1;
+		int m = A.length;
+		int n = B.length;
 
-		// Compute lengths
-		int len1 = nums1.length - 1;
-		int len2 = nums2.length - 1;
-		int totalLen = nums1.length + nums2.length - 1;
 
-		// Create an array to merge both of them
-		int[] combined = new int[nums1.length + nums2.length];
+		// First array always has to be smaller
+		if (m > n) 
+			return findMedianSortedArrays2(B, A);
 
-		// Iterate elements until one of it becomes empty
-		while(len1 >= 0 && len2 >= 0)
+		// We will keep track of index in larger array only
+		int minSmallerArray = 0; 
+		int maxSmallerArray = m; 
+
+		int i=0; 
+		int j=0;
+
+		int num1=0; 
+		int midCombined = (m + n + 1) / 2; 
+		int num2=0;
+
+		while (minSmallerArray <= maxSmallerArray)
 		{
-			if(nums1[len1] >= nums2[len2])
-			{
-				combined[totalLen--] = nums1[len1--];
-			}
+			i = (minSmallerArray + maxSmallerArray) / 2;
+			j = midCombined - i;
+
+			// If B(last of first half) > A(first of second half), then the object "ix" can't be in the left part [0, i0]
+			if (i<m && j>0 && B[j-1] > A[i]) 
+				minSmallerArray = i + 1; // Discard the left part and continue searching in [i + 1, maxSmallerArray]
+
+			// If A(last of first half) > B(first of second half), then the object "ix" can't be in the right part [i0, m].
+			else if (i>0 && j<n && B[j] < A[i-1]) 
+				maxSmallerArray = i - 1; // Discard the right part and continue searching in [minSmallerArray, i - 1]
+
+			// Bingo! This is our object "i"
 			else
 			{
-				combined[totalLen--] = nums2[len2--];
+				if (i == 0) 
+					num1 = B[j-1];
+
+				else if (j == 0) 
+					num1 = A[i-1];
+
+				else 
+					num1 = Math.max(A[i-1], B[j-1]);
+
+				break;
 			}
-		}
+		} // Object is found
 
-		// If 2nd is remaining, fill its elements
-		while(len2 >= 0)
-		{
-			combined[totalLen--] = nums2[len2--];
-		}
 
-		// If 1st is remaining, fill its elements
-		while(len1 >= 0)
-		{
-			combined[totalLen--] = nums1[len1--];
-		}
 
-		return combined;
+		// When m+n is odd-
+		if (((m + n) % 2) == 1) 
+			return num1;
 
+		// Find out the median-
+		if (i == m) 
+			num2 = B[j];
+
+		else if (j == n) 
+			num2 = A[i];
+
+		else 
+			num2 = Math.min(A[i],B[j]);
+
+		return (num1 + num2) / 2.;
 	}
-
-	// O (log(Min(1, 2))) solution
-	// https://leetcode.com/discuss/41621/very-concise-iterative-solution-with-detailed-explanation	
-	public static double findMedianSortedArrays2(int[] nums1, int[] nums2) 
-	{
-		int len1 = nums1.length;
-		int len2 = nums2.length;
-
-		// Make sure A2 is the shorter one.
-		if (len1 < len2) 
-			return findMedianSortedArrays(nums2, nums1);   
-
-		// If A2 is empty, return the median from A1 normally
-		if (len2 == 0) 
-			return ((double)nums1[(len1 - 1)/2] + (double)nums1[len1 / 2])/2;  
-
-		/************* The main code starts here *****************/
-		
-		int lo = 0, hi = len2 * 2;
-
-		while (lo <= hi) 
-		{
-			// when we cut at position C2 = K in A2
-			int mid2 = (lo + hi) / 2;  
-			
-			// then the cut position in A1 must be C1 = N1 + N2 - k
-			int mid1 = len1 + len2 - mid2;  // Calculate Cut 1 accordingly
-
-			// Cuts are made in both the arrays, now we have two Ls and 2 Rs
-			double L1 = (mid1 == 0) ? Integer.MIN_VALUE : nums1[(mid1-1)/2]; 
-			double L2 = (mid2 == 0) ? Integer.MIN_VALUE : nums2[(mid2-1)/2];
-			double R1 = (mid1 == len1 * 2) ? Integer.MAX_VALUE : nums1[(mid1)/2];
-			double R2 = (mid2 == len2 * 2) ? Integer.MAX_VALUE : nums2[(mid2)/2];
-
-			
-			// A1's lower half is too big; need to move C1 left (C2 right)
-			if (L1 > R2) 
-				lo = mid2 + 1;     
-			
-			// A2's lower half too big; need to move C2 left.
-			else if (L2 > R1) 
-				hi = mid2 - 1;
-			
-			// Otherwise, that's the right cut.
-			else 
-				return (Math.max(L1,L2) + Math.min(R1, R2)) / 2; 
-		}
-
-		return -1;   
-	}
-
-	// https://leetcode.com/discuss/11174/share-my-iterative-solution-with-o-log-min-n-m
-	// http://www2.myoops.org/course_material/mit/NR/rdonlyres/Electrical-Engineering-and-Computer-Science/6-046JFall-2005/30C68118-E436-4FE3-8C79-6BAFBB07D935/0/ps9sol.pdf
-	public static double findMedianSortedArrays(int A[], int B[]) 
-	{
-		int lenA = A.length;
-		int lenB = B.length;
-
-		// The first should be smaller always.
-		if (lenA > lenB)
-			return findMedianSortedArrays(B, A);
-
-		// now, do binary search
-		int midCombined = (lenA + lenB - 1) / 2;
-		int l = 0; 
-		int r = Math.min(midCombined, lenA); // r is lenA, NOT lenA-1, this is important!!
-
-		while (l < r) 
-		{
-			int midA = (l + r) / 2;
-			int midB = midCombined - midA;
-			if (A[midA] < B[midB])
-				l = midA + 1;
-			else
-				r = midA;
-		}
-
-		// after binary search, we almost get the median because it must be between
-		// these 4 numbers: A[l-1], A[l], B[k-l], and B[k-l+1] 
-
-		// if (lenA+lenB) is odd, the median is the larger one between A[l-1] and B[k-l].
-		// and there are some corner cases we need to take care of.
-		int aA = l > 0 ? A[l - 1] : Integer.MIN_VALUE;
-		int bB = midCombined - l >= 0 ? B[midCombined - l] : Integer.MIN_VALUE;		
-		int a = Math.max(aA, bB);
-		
-		if (((lenA + lenB) % 2) == 1)
-			return (double) a;
-
-		// if (lenA+lenB) is even, the median can be calculated by median = (max(A[l-1], B[k-l]) + min(A[l], B[k-l+1]) / 2.0
-		// also, there are some corner cases to take care of.
-		aA = l < lenA ? A[l] : Integer.MAX_VALUE;
-		bB = midCombined - l + 1 < lenB ? B[midCombined - l + 1] : Integer.MAX_VALUE;
-		int b = Math.min(aA, bB);
-		return (a + b) / 2.0;
-	}
-	
-	
-
-
-	
 
 }

@@ -8,7 +8,6 @@ public class SubSets {
 
 	public static void main (String[] args) throws java.lang.Exception
 	{
-		// your code goes here
 		int nums[] = {1,2};
 		System.out.println(subsets(nums));
 		System.out.println();
@@ -64,27 +63,30 @@ public class SubSets {
      
     	List<List<Integer>> result = new ArrayList<List<Integer>>();
      
-    	for (int i = 0; i < nums.length; i++) {
+    	for (int i = 0; i < nums.length; i++) 
+    	{
+    		
+    		// Ye wale iteration ke liye ek Copy prepare karo jisme hum num[i] daalenge
     		List<List<Integer>> temp = new ArrayList<List<Integer>>();
     		
-    		
-    		// Since we will be adding items one by one to the existing ones, get the existing items.
+    		// Humko "new" banana padega because it works as a reference in Java  
     		for (List<Integer> a : result) 
     		{
     			temp.add(new ArrayList<Integer>(a));
     		}
      
-    		// add S[i] to existing sets which are now in temp
+    		// Ek copy ready hai from previous iteration. Ab isme har set mein nums[i] daalo 
     		for (List<Integer> a : temp) 
     		{
     			a.add(nums[i]);
     		}
      
-    		// add S[i] only as a set
-    		ArrayList<Integer> single = new ArrayList<Integer>();
-    		single.add(nums[i]);
+    		// Ek aisa bhi set hoga jisme nums[i] akela jayega. Isko bhi temp mein daal do.
+    		ArrayList<Integer> single = new ArrayList<Integer>(nums[i]);
+    		// single.add(nums[i]);
     		temp.add(single);
      
+    		// Is iteration se temp ready hai, ab isko global result mein chadha do.
     		result.addAll(temp);
     	}
      

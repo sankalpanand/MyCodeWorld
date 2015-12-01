@@ -23,7 +23,7 @@ public class LengthOfLastWord {
 				res++;
 			}
 			// && res!=0 to avoid conditions like 'a '
-			else if(s.charAt(i-1) ==' '&& res!=0)
+			else if(s.charAt(i-1) ==' ' && res!=0)
 			{
 				return res;
 			}

@@ -17,7 +17,8 @@ public class FactorialTrailingZeros {
 	 * Number of 5’s = 100/5 + 100/25 + 100/125 + … = 24 (Integer values only)
 	 * */
 
-	public static int trailingZeroes(int n) {
+	public static int trailingZeroes(int n) 
+	{
 		int temp = 5;
         int count = 0;
         

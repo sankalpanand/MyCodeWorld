@@ -16,7 +16,7 @@ public class SubSets2 {
 	
 	// Refer to the visualization here-
     // https://leetcode.com/discuss/9213/my-solution-using-bit-manipulation
-    public static List<List<Integer>> subsets1(int[] nums) 
+    public static List<List<Integer>> subsetsWithDup1(int[] nums) 
 	{
 		Arrays.sort(nums);
 		int len = nums.length;
@@ -31,7 +31,7 @@ public class SubSets2 {
 			for (int j = 0; j < len; j++) // It will generate numbers in the string one by one. It will be our columns.
 			{
 			    // Now check status of each bit in i (0-7). For a 3 digit binary number,
-			    // i >> 0 will give the status of right most bit
+			    // i >> 0 will give the status of the last bit
 			    // i >> 1 will give the status of the middle bit
 			    // i >> 2 will give the status of the left most bit
 			    // Therefore, i >> j will give-
@@ -48,15 +48,18 @@ public class SubSets2 {
 				}				
 			}
 			
-			if(! resultSet.contains(subset))
+		    // -------------------------------------------------------
+		    // This is the only change from previous solution
+		    // -------------------------------------------------------
+			if(!resultSet.contains(subset))
 			{
 				resultSet.add(subset);
 			}
 		}
 		return resultSet;
 	}
-    
- // Complexity- 2^n
+	
+	// Complexity- 2^n
     // https://leetcode.com/discuss/46668/recursive-iterative-manipulation-solutions-explanations
     // http://www.programcreek.com/2013/01/leetcode-subsets-java/
     public static List<List<Integer>> subsetsWithDup(int[] nums) 

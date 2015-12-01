@@ -1,5 +1,7 @@
 package medium;
 
+import java.util.Arrays;
+
 public class UniquePaths {
 
 	public static void main(String[] args) {
@@ -34,6 +36,8 @@ public class UniquePaths {
 			dp[i] = 1;
 		}
 		
+		System.out.println(Arrays.toString(dp));
+		
 		// In this approach, we are overwriting over the 1st row while calculating 2nd row.
 		for (int i = 1; i < m; i++) 
 		{
@@ -43,10 +47,12 @@ public class UniquePaths {
 				// Add prev and curr values (n-1) times
 				dp[j] += dp[j - 1];
 			}
+			System.out.println(Arrays.toString(dp));
 		}
 		return dp[n - 1];
 	}
 
+	// Using 2d array
 	public int uniquePaths1(int m, int n) 
 	{
 		// https://leetcode.com/discuss/38353/0ms-5-lines-dp-solution-in-c-with-explanations

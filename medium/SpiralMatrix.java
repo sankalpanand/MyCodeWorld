@@ -41,6 +41,7 @@ public class SpiralMatrix {
             // Right most column done. Decrease colEnd.
             colEnd--;
             
+            // This guard checks the corner case of just one row in the input
             if(rowBegin <= rowEnd)
             {
                 // Traverse Left
@@ -53,6 +54,7 @@ public class SpiralMatrix {
                 rowEnd--;
             }
             
+            // This guard checks the corner case of just one column in the input
             if(colBegin <= colEnd)
             {
                 // Traverse up
@@ -68,7 +70,5 @@ public class SpiralMatrix {
         }
         
         return result;
-        
     }
-
 }

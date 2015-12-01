@@ -8,8 +8,8 @@ public class AddDigits {
 	}
 	
 	// Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
-	public static int addDigits(int num) {
-
+	public static int addDigits(int num) 
+	{
 		int temp = num;
 		int sum = 0;
 
@@ -29,10 +29,10 @@ public class AddDigits {
 		return temp;
 	}
 
-	public static int addDigitsOneLiner(int num) {
+	public static int addDigitsOneLiner(int num) 
+	{
 		return num%9; // It will give 0 for 9. So we better use (num - 1) % 9 + 1
 		// BEST: return num==0?0:(num%9==0?9:(num%9));
-		
 	}
 
 }

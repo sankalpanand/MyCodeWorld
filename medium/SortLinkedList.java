@@ -2,12 +2,23 @@ package medium;
 
 public class SortLinkedList {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public static void main(String[] args) 
+	{
+		ListNode head = new ListNode(5);
+		head.AddToTail(4);
+		head.AddToTail(3);
+		head.AddToTail(2);
+		head.AddToTail(1);
+		
+		sortList(head);
+		
 	}
 
-	public ListNode sortList(ListNode head) 
+	/* The idea is to find out the head and the mid of the LL. 
+	 * Then you de-link the two. 
+	 * Send them to merge list function.
+	 * You can recurse on each of the smaller lists. */
+	public static ListNode sortList(ListNode head) 
 	{
 		if (head == null || head.next == null)
 			return head;
@@ -19,16 +30,22 @@ public class SortLinkedList {
 		{
 			slow = slow.next;
 			fast =  fast.next.next;
-		}
+		} // Slow.next gives you the head of the second half
 		
-		ListNode h2 = sortList(slow.next); // 1
+		// 2- Sort first half
+		ListNode h2 = sortList(slow.next);
+		
+		// 3- Delink the lists
 		slow.next = null;
-		ListNode h1 = sortList(head); // 2
+		
+		// 4- Sort second half
+		ListNode h1 = sortList(head);
 		 
-		return merge(h1, h2); // 3
+		// 5- Merge the two sorted lists
+		return merge(h1, h2);
 	}
 	
-	public ListNode merge(ListNode h1, ListNode h2) 
+	public static ListNode merge(ListNode h1, ListNode h2) 
 	{
 		ListNode dummy = new ListNode(Integer.MIN_VALUE);
 		ListNode mergedListPointer = dummy;

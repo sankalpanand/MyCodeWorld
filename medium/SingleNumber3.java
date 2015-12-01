@@ -18,9 +18,10 @@ public class SingleNumber3 {
 		System.out.println(Arrays.toString(res));
 	}
 
-	// For explanation, read my comment here-
-    // https://leetcode.com/discuss/52913/my-java-solution-adapted-from-the-commonest-solution-here
-    
+	/* Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only 
+	   For explanation, read my comment here-
+       https://leetcode.com/discuss/52913/my-java-solution-adapted-from-the-commonest-solution-here
+    */
     public static int[] singleNumber(int[] nums) 
     {
         int xorRes = 0;
@@ -72,6 +73,7 @@ public class SingleNumber3 {
                 record.add(nums[i]);
             }
         }
+        
         Object[] test = record.toArray();
         ans[0]=(int)test[0];
         ans[1]=(int)test[1];

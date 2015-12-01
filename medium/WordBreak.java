@@ -80,12 +80,12 @@ public class WordBreak {
 			if (wb[i] == false && dict.contains(str.substring(0, i) ))
 				wb[i] = true;
 
-			// Step 2- If word can be formed from left part, check forward for word formation
-			// wb[i] is true, then check for all substrings starting from
-			// (i+1)th character and store their results. For example, we matched leet, so we will start in the remaining word. We will check for c, co, cod, code.
+			// Step 2- If word can be formed from left part, then we need to investigate the right part.
+			// wb[i] is true, then check for all substrings starting from (i+1)th character and store their results. 
+			// For example, we matched leet, so we will start in the remaining word. We will check for c, co, cod, code.
 			if (wb[i] == true)
 			{
-				// If wb[i] is true and i is the size, it means word can be formed till (i-1). So return true.
+				// If wb[i] is true, it means word can be formed till (i-1). But i has reached the lenght. So, search over.
 				if (i == size)
 					return true;
 
@@ -97,8 +97,8 @@ public class WordBreak {
 					if (wb[j] == false && dict.contains(remWord))
 						wb[j] = true;
 
-					// If we reached the last character
-					if (j == size && wb[j] == true)
+					// If we reached the last character while checking in the right part
+					if (wb[j] == true && j == size)
 						return true;
 				}
 			}

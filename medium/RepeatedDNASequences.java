@@ -35,7 +35,7 @@ public class RepeatedDNASequences {
         return list;
     }
     
-    // Accepted solution with Bit Manipulation
+ // Accepted solution with Bit Manipulation
     public static List<String> findRepeatedDnaSequences(String s) {
         Set<Integer> firstTime = new HashSet<Integer>();
         Set<Integer> secondTime = new HashSet<Integer>();
@@ -46,10 +46,11 @@ public class RepeatedDNASequences {
         
         // Hashing function. We have only 4 letters which we can represent by 2 bits.
         map['A' - 'A'] = 0; // A = 00
-        map['C' - 'A'] = 1; // B = 01
-        map['G' - 'A'] = 2; // C = 10
-        map['T' - 'A'] = 3; // D = 11
+        map['C' - 'A'] = 1; // C = 01
+        map['G' - 'A'] = 2; // G = 10
+        map['T' - 'A'] = 3; // T = 11
         
+        // i <= len - 10 = Because j will start from i
         for(int i=0; i<= len - 10; i++)
         {
             int sequence = 0;
@@ -60,7 +61,7 @@ public class RepeatedDNASequences {
                 
                 // Copy the character from the map and paste those two bits in the newly created space. Read bit wise OR.
                 sequence = sequence | map[s.charAt(j) - 'A'];
-            }
+            } // The sequence of 10 chars generated
             
             // For this number to be added in the list, this should be the second time this number is appearing
             // For this if condition to be true, firstTime.add() should be false.

@@ -3,6 +3,8 @@ package easy;
 import java.util.ArrayList;
 import java.util.List;
 
+/* Given a binary tree, return all root-to-leaf paths. */
+
 public class BinaryTreePaths {
 	List<String> paths = new ArrayList<String>();
     

@@ -13,6 +13,7 @@ public class BalancedBinaryTree {
 	    // In other cases, it will return the height of the tree.
 	    return height(root)!=-1;
 	}
+
 	public int height(TreeNode node)
 	{
 	    // Base case if the leaf is hit
@@ -22,14 +23,11 @@ public class BalancedBinaryTree {
 		// Cheeck the height of LST using recursive call
 		int leftHt =  height(node.left);
 		
-		// If the left height returns -1, it means some node in LST is at disbalance.
-		if(leftHt == -1) return -1;
-		
 		// Cheeck the right height using recursive call
 		int rightHt = height(node.right);
 		
-		// If the right height returns -1, it means some node in RST is at disbalance.
-		if(rightHt == -1) return -1;
+		// If any of the child return their height as -1, it means some inner node is at disbalance.
+		if(leftHt == -1 || rightHt == -1) return -1;
 		
 		// If the difference between left and right > 1 then its a fail case. Return -1.
 		if(Math.abs(rightHt-leftHt) > 1) return -1;

@@ -1,9 +1,11 @@
 package medium;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
 
 public class BinaryTreeRightSideView {
 
@@ -49,10 +51,4 @@ public class BinaryTreeRightSideView {
 
 }
 
-class TreeNode {
-	int val;
-	TreeNode left;
-	TreeNode right;
-	TreeNode next;
-	TreeNode(int x) { val = x; }
-}
+

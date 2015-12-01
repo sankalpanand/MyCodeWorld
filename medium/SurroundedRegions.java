@@ -25,8 +25,6 @@ public class SurroundedRegions
 		System.out.println("Done !!");
 	}
 
-	
-
 	public static int M = 0;
 	public static int N = 0;
 

@@ -2,41 +2,23 @@ package medium;
 
 public class SearchInsertPosition {
 
-	// Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
-
-	// It only works because the input starts from zero - Sum of n elements - sumArray
-	public int missingNumber(int[] nums) 
-	{
-		int sum = 0;
-		for(int num: nums)
-			sum += num;
-
-		return (nums.length * (nums.length + 1) )/ 2 - sum;
-	}
-
-	// Bit manipulation
-	/*
-    Let's say A = {0,1,2,4}
-    XOR1 = {0^1^2^4}
-    XOR2 = {0^1^2^3^4}
-    XOR1^XOR2 = 3
-	 */
-	public int missingNumber1(int[] nums) 
-	{
-		int xor1 = 0;
-		for(int num : nums)
-		{
-			xor1 = xor1 ^ num;
-		}
-
-		int xor2 = 0;
-		for(int i=1; i <= nums.length; i++)
-		{
-			xor2 = xor2 ^ i;
-		}
-
-		return xor1 ^ xor2;
-
-	}
+	/* 	Given a sorted array and a target value, return the index if the target is found. 
+		If not, return the index where it would be if it were inserted in order.
+    
+    
+    	Sol - It is exactly same as binary search.
+    */
+    public int searchInsert(int[] A, int target) 
+    {
+        int low = 0, high = A.length-1;
+        while(low<=high)
+        {
+            int mid = (low+high)/2;
+            if(A[mid] == target) return mid;
+            else if(A[mid] > target) high = mid-1;
+            else low = mid+1;
+        }
+        return low;
+    }
 
 }

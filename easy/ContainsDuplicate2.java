@@ -12,15 +12,17 @@ import java.util.Set;
 
 public class ContainsDuplicate2 {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) 
+	{
 		int[] nums = {1,1,2,2,2,2,2,3,4,5,6,2,2,2};
 		
 		// int[] nums = {1,2,3,4,5,6,7,8,1};
 		System.out.println(containsNearbyDuplicate(nums, 2));
 	}
 
-	// Using Hash Map- Keep adding the number and their index in the hash map. 
+
+    // Hash Map- 
+    // Keep adding the number and their index in the hash map. 
     // If the number already exists, you will get its previous index.
     // Check the difference between the prev Index and the current i.
 	public static boolean containsNearbyDuplicate(int[] nums, int k) 
@@ -39,6 +41,11 @@ public class ContainsDuplicate2 {
 		return false;
 	}
 	
+	
+	// Sliding Window- 
+	// 0 1 2 3 4 5 6 || k = 3
+    // Add the elements into the set as and when you move along
+    // Keep on removing the elements that slip out of the window
     public static boolean containsNearbyDuplicate1(int[] nums, int k) 
 	{
 		Set<Integer> set = new HashSet<Integer>();
@@ -57,6 +64,7 @@ public class ContainsDuplicate2 {
 		}
 		return false;
 	}
+
 }
 
 

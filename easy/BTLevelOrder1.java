@@ -7,11 +7,10 @@ import java.util.Queue;
 
 public class BTLevelOrder1 {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		
-
+	/* Given a binary tree, return the level order traversal of its nodes' values. */
+	
+	public static void main(String[] args) 
+	{
 	}
 	
 	// The idea is to take size of a queue before enqueuing new elements. 

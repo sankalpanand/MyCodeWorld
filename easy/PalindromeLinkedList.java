@@ -31,6 +31,7 @@ public class PalindromeLinkedList
         // Even case:
         // 0 -- 0 -- 0 -- 0 (slow) -- 0 -- 0 -- 0 (fast) -- 0 -- null
         // slow.next will give us the starting node of the second half
+        
         // Odd case:
         // 0 -- 0 -- 0 -- 0 (slow) -- 0 -- 0 -- 0 (fast) -- null
         // Slow.next will still give us the starting node of the second half

@@ -7,6 +7,9 @@ public class RotateList {
 
 	}
 
+	/* The approach is to get to the tail while taking the count.
+	 * Then, move (n-k) steps from the tail 
+	 * Then, the next pointer will be your new head !! */
 	public ListNode rotateRight(ListNode head, int k) 
 	{
 		if(head == null) 
@@ -31,6 +34,12 @@ public class RotateList {
 		k = k % len;
 		
 		
+		/* Now, the tail is connected to the head. So, head is 1st element from tail.
+		 * (2) is the second element from tail
+		 * (3) is the third element from tail
+		 *  and so on...
+		 *  So, move (n-k) from the tail and the next element will be your new head after rotation !!
+		 *  */
 		if(k != 0) 
 		{
 			// the tail node is the (len-k)-th node (1st node is head)
