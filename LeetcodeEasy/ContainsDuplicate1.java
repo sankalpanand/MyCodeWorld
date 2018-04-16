@@ -13,6 +13,9 @@ public class ContainsDuplicate1 {
 	}
 
 	/* Find if the array contains any duplicates */
+	// Possible solutions- https://discuss.leetcode.com/topic/14730/possible-solutions
+
+    // Time complexity: O(N), memory: O(N)
     public static boolean containsNearbyDuplicate(int[] nums) 
 	{
 		HashSet<Integer> set = new HashSet<Integer>();
@@ -26,4 +29,32 @@ public class ContainsDuplicate1 {
 		return false;       
         
     }
+
+    // Time complexity: O(N^2), memory: O(1)
+    public boolean containsDuplicate(int[] nums) {
+
+        for(int i = 0; i < nums.length; i++) {
+            for(int j = i + 1; j < nums.length; j++) {
+                if(nums[i] == nums[j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Time complexity: O(N lg N), memory: O(1) - not counting the memory used by sort
+    public boolean containsDuplicate2(int[] nums) {
+
+        Arrays.sort(nums);
+        for(int ind = 1; ind < nums.length; ind++) {
+            if(nums[ind] == nums[ind - 1]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 }

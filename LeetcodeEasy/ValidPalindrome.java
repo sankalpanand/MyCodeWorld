@@ -37,7 +37,8 @@ public class ValidPalindrome {
 		if (s.isEmpty()) 
 			return true;
 
-		int head = 0, tail = s.length() - 1;
+		int head = 0;
+		int tail = s.length() - 1;
 		char cHead, cTail;
 
 		while(head <= tail) 

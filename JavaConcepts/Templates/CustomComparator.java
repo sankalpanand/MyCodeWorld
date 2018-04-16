@@ -1,4 +1,4 @@
-package Templates;
+package JavaConcepts.Templates;
 import java.util.Arrays;
 
 public class CustomComparator {

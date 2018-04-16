@@ -15,7 +15,7 @@ public class SingleNumber3 {
 		System.out.println(Arrays.toString(res));
 	}
 
-	/* Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only 
+	/* https://leetcode.com/problems/single-number-iii/description/
 	   For explanation, read my comment here-
        https://leetcode.com/discuss/52913/my-java-solution-adapted-from-the-commonest-solution-here
     */
@@ -28,15 +28,15 @@ public class SingleNumber3 {
             xorRes = xorRes ^ num;
         }
         
-        // Till this point, we got XOR of the two unique nummbers. So, there will be some bits set in the result. 
-        // For that set bit in the result , one number will have that place as 1 and the other number will have that place as 0.
+        // Till this point, we got XOR of the two unique numbers. So, there will be some bits set in the result.
+        // For that set bit in the result, one number will have that place as 1 and the other number will have that place as 0.
         // We take the left most bit and make all other bits in the result as 0.
         xorRes = Integer.highestOneBit(xorRes);
         
         int[] result = {0, 0};
         
         // Now we will divide the numbers into two groups - One with that particular bit set and other with that particular bit not set.
-        // This will divide our two numbers also in to groups.
+        // This will divide our two numbers also in two groups.
         // Then simply apply Single Number I approach.
         for(int num : nums)
         {
