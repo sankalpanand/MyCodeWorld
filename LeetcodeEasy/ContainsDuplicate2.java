@@ -22,12 +22,13 @@ public class ContainsDuplicate2 {
     // Check the difference between the prev Index and the current i.
 	public static boolean containsNearbyDuplicate(int[] nums, int k) 
 	{
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		Map<Integer, Integer> map = new HashMap<>();
 
 		for(int i = 0; i <  nums.length; i++) 
 		{
 			Integer ord = map.put(nums[i], i);
-			if(ord != null && i - ord <= k) 
+
+			if(ord != null && i - ord <= k)
 			{
 				return true;
 			}
@@ -43,12 +44,13 @@ public class ContainsDuplicate2 {
     // Keep on removing the elements that slip out of the window
     public static boolean containsNearbyDuplicate1(int[] nums, int k) 
 	{
-		Set<Integer> set = new HashSet<Integer>();
+		Set<Integer> set = new HashSet<>();
 
 		for(int i = 0; i < nums.length; i++)
 		{
-			// Discard the elements that are out of the window. We don't need them. We'll go out of for loop and return false.
-			if(i > k) 
+			// Discard the elements that are out of the window.
+            // We don't need them. We'll go out of for loop and return false.
+			if(i > k) // This is just to make sure we don't get exception at the beginning of the loop
 				set.remove(nums[i-k-1]);
 
 			boolean ifFirstTime = set.add(nums[i]); // true for first time, false for second time

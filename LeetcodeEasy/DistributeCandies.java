@@ -10,7 +10,8 @@ public class DistributeCandies {
     }
 
     public int distributeCandies(int[] candies) {
-        HashSet<Integer> set = new HashSet<>();
+        // HashSet<Integer> set = new HashSet<>();
+        HashSet<Integer> set = new HashSet<>(candies.length); // For faster code
         Arrays.stream(candies).forEach(candy -> set.add(candy));
         return Math.min(set.size(), candies.length/2);
     }

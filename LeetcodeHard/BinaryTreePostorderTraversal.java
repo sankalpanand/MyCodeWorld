@@ -1,9 +1,8 @@
-package LeetcodeMedium;
+package LeetcodeHard;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import LeetcodeMedium.TreeNode;
+
+import java.util.*;
 
 public class BinaryTreePostorderTraversal {
 
@@ -15,36 +14,72 @@ public class BinaryTreePostorderTraversal {
 
 
 	// https://www.youtube.com/watch?v=qT65HltK2uE
+	// Using two stacks
 	// Time and space - O(n)
-	public List<Integer> postorderTraversal1(TreeNode root) {
-		List<Integer> result = new ArrayList<Integer>();
-		Stack<TreeNode> stack1 = new Stack<TreeNode>();
-		Stack<TreeNode> stack2 = new Stack<TreeNode>();
+    public List<Integer> postorderTraversal(TreeNode root){
 
-		if(root== null) return result;
+        List<Integer> result = new LinkedList<>();
+        if(root == null) return result;
 
-		stack1.push(root);
+        Deque<TreeNode> stack1 = new LinkedList<>();
+        Deque<TreeNode> stack2 = new LinkedList<>();
 
-		while(!stack1.isEmpty())
-		{
-			TreeNode node = stack1.pop();
-			stack2.push(node);
+        stack1.push(root);
+        
+        // Part 1 - Stack 2 build karo
+        while(!stack1.isEmpty()){
+            
+            root = stack1.pollFirst();
+            
+            // Push the left child on to the first stack
+            if(root.left != null){
+                stack1.push(root.left);
+            }
 
-			if(node.left != null) stack1.push(node.left);
-			if(node.right != null) stack1.push(node.right);
-		}
+            // Push the right child on to the first stack
+            if(root.right != null){
+                stack1.push(root.right);
+            }
 
-		while(!stack2.isEmpty())
-		{
-			TreeNode node = stack2.pop();
-			result.add(node.val);
-		}
+            // Left aur right push karne ke baad khud element ko stack 2 par push kar do
+            stack2.push(root);
+        }
+        
+        // Part 2 - Stack 2 ko khali karo
+        while(!stack2.isEmpty()){
+            result.add(stack2.pollFirst().val);
+        }
 
-		return result;
-	}
+        return result;
+    }
+
+    // https://www.youtube.com/watch?v=xLQKdq0Ffjg
+    public void postOrderItrOneStack(TreeNode root){
+        TreeNode current = root;
+        Deque<TreeNode> stack = new LinkedList<>();
+        while(current != null || !stack.isEmpty()) {
+            if(current != null){
+                stack.addFirst(current);
+                current = current.left;
+            } else {
+
+                TreeNode temp = stack.peek().right;
+                if (temp == null) {
+                    temp = stack.poll();
+                    System.out.print(temp.val + " ");
+                    while (!stack.isEmpty() && temp == stack.peek().right) {
+                        temp = stack.poll();
+                        System.out.print(temp.val + " ");
+                    }
+                } else {
+                    current = temp;
+                }
+            }
+        }
+    }
 
 	// Using single stack - derived from preOrder
-	// https://leetcode.com/discuss/9736/accepted-code-with-explaination-does-anyone-have-better-idea
+	// https://leetcode.com/problems/binary-tree-postorder-traversal/discuss/45559/My-Accepted-code-with-explaination.-Does-anyone-have-a-better-idea
 	public List<Integer> postorderTraversal2(TreeNode root) 
 	{
 		List<Integer> result = new ArrayList<Integer>();
@@ -75,7 +110,7 @@ public class BinaryTreePostorderTraversal {
 
 	// http://www.programcreek.com/2012/12/leetcode-solution-of-iterative-binary-tree-postorder-traversal-in-java/
 	// It's tricky. Try doing it on pen and paper to understand it properly
-	public List<Integer> postorderTraversal(TreeNode root) 
+	public List<Integer> postorderTraversal3(TreeNode root)
 	{
 		List<Integer> result = new ArrayList<Integer>();
 		Stack<TreeNode> stack = new Stack<TreeNode>();

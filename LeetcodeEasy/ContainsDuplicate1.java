@@ -9,14 +9,14 @@ public class ContainsDuplicate1 {
 		// int[] nums = {1,1,2,2,2,2,2,3,4,5,6,2,2,2};
 
 		int[] nums = {1,2,3,4,5,6,7,8,1};
-		System.out.println(containsNearbyDuplicate(nums));
+		System.out.println(containsDuplicate(nums));
 	}
 
 	/* Find if the array contains any duplicates */
 	// Possible solutions- https://discuss.leetcode.com/topic/14730/possible-solutions
 
     // Time complexity: O(N), memory: O(N)
-    public static boolean containsNearbyDuplicate(int[] nums) 
+    public static boolean containsDuplicate(int[] nums)
 	{
 		HashSet<Integer> set = new HashSet<Integer>();
 		
@@ -25,13 +25,11 @@ public class ContainsDuplicate1 {
 			if(!set.add(num))
 				return true;
 		}
-		
-		return false;       
-        
+		return false;
     }
 
     // Time complexity: O(N^2), memory: O(1)
-    public boolean containsDuplicate(int[] nums) {
+    public boolean containsDuplicate1(int[] nums) {
 
         for(int i = 0; i < nums.length; i++) {
             for(int j = i + 1; j < nums.length; j++) {
@@ -43,7 +41,7 @@ public class ContainsDuplicate1 {
         return false;
     }
 
-    // Time complexity: O(N lg N), memory: O(1) - not counting the memory used by sort
+    // Time complexity: O(N log N), memory: O(1) - not counting the memory used by sort
     public boolean containsDuplicate2(int[] nums) {
 
         Arrays.sort(nums);

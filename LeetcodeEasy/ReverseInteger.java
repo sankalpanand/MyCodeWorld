@@ -3,8 +3,10 @@ package LeetcodeEasy;
 public class ReverseInteger {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println(reverse(-2147483648));
+//	    int x = 9646324350;
+//		System.out.println(reverse(-2147483648));
+        System.out.println(reverse(1534236469));
+
 
 	}
 
@@ -14,7 +16,7 @@ public class ReverseInteger {
 
 		while(temp != 0)
 		{
-			int rem = temp%10;
+			int rem = temp % 10;
 			int newNum = num * 10 + rem;
 
 			// This basically reverses the previous operation to check if number overflow actually occured?

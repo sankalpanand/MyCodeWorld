@@ -8,18 +8,11 @@ public class TwoSum {
 
 	public static void main(String[] args) {
 
-		int[] nums = {3,2,4};
-		int[] res = twoSum2(nums, 6);
+		int[] nums = {2, 7, 11, 15};
+		int[] res = twoSum(nums, 9);
 		System.out.println(Arrays.toString(res));
 	}
 
-	
-	/*
-	Given an array of integers, find two numbers such that they add up to a specific target number.
-	The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. 
-	Please note that your returned answers (both index1 and index2) are not zero-based.
-	 */
-	
 	/*
 	2 Solutions- 
 	1. Time efficient- Put them in a map.
@@ -36,7 +29,7 @@ public class TwoSum {
     public static int[] twoSum(int[] nums, int target) 
     {
         int[] result = new int[2];
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> map = new HashMap<>();
         
         for(int i=0; i<nums.length; i++)
         {
@@ -48,7 +41,7 @@ public class TwoSum {
                 return result;
             }
             
-            map.put(nums[i], i+1);
+            map.put(nums[i], i);
         }
         
         return result;
@@ -57,31 +50,31 @@ public class TwoSum {
     // This is O(n) time and O(1) space but I can not give back indices. Only the numbers.
     public static int[] twoSum2(int A[], int sum)
 	{
-		int n = A.length;
-	    int l=0;
-	    int r=n-1;
+	    int start = 0;
+	    int end = A.length - 1;
 	    
 	    int[] result = new int[2];
 	 
 	    /* Sort the elements */
 	    Arrays.sort(A);
 	 
-	    /* Now look for the two candidates in the sorted array*/	    
-	    while (l < r)
+	    /* Now look for the two candidates in the sorted array */
+	    while (start < end)
 	    {
-	         if(A[l] + A[r] == sum)
+	         if(A[start] + A[end] == sum)
 	         {
-	        	 result[0] = A[l];
-	        	 result[1] = A[r];
+	        	 result[0] = A[start];
+	        	 result[1] = A[end];
 	        	 return result;
 	         }
 	               
-	         else if(A[l] + A[r] < sum)
-	              l++;
+	         else if(A[start] + A[end] < sum)
+	              start++;
+
 	         else // A[i] + A[j] > sum
-	              r--;
+	              end--;
 	    }    
-	    
+
 	    return result;
 	}
 }

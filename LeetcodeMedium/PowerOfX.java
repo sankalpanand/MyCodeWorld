@@ -22,7 +22,7 @@ public class PowerOfX {
                 ++n;  // Make -2147483648 to -2147483647
                 n = -n;
                 x = 1/x;
-                return x * x * myPow( x * x, n / 2 );
+                return x * x * myPow( x*x, n / 2 );
             }
 
 			n = -n;
@@ -54,7 +54,7 @@ public class PowerOfX {
 			n = -n;
 		}
 		
-		while(n>0)
+		while(n > 0)
 		{
 		    // Checking for power being odd
 			if((n&1) == 1) 
@@ -69,7 +69,50 @@ public class PowerOfX {
 			// Divide n by 2
 			n = n>>1; 
 		}
+
 		return res;
 	}
+
+	/* Works only if a >= 0 and b >= 0 */
+	// Power without multiplication and division
+	static int myPow1(int x, int n)
+	{
+		if (n == 0)
+			return 1;
+
+		int answer = x;
+		int increment = x;
+		int i, j;
+
+		for (i = 1; i < n; i++) {
+
+		    // First 5 times add 5, we get 25
+			for (j = 1; j < x; j++) {
+				answer += increment;
+			}
+
+			increment = answer;
+		}
+
+		return answer;
+	}
+
+    static int pow(int a, int b)
+    {
+
+        if (b > 0)
+            return multiply(a, pow(a, b - 1));
+        else
+            return 1;
+    }
+
+    /* A recursive function to get x*y */
+    static int multiply(int x, int y)
+    {
+        if (y > 0)
+            return (x + multiply(x, y - 1));
+        else
+            return 0;
+    }
 
 }
