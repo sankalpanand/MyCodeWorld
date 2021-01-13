@@ -1,3 +1,8 @@
+package JavaConcepts;
+
+import java.util.HashMap;
+import java.util.Map;
+
 class Test extends Exception { }
 class Base extends Exception {}
 class Derived extends Base  {}
@@ -5,8 +10,14 @@ class Derived extends Base  {}
 public class ExceptionHandling {
 
 	public static void main(String args[]) { 
-		Example1();
-		Example2();
+		// Example1();
+		// Example2();
+
+		try {
+			getBookIds(null);
+		} catch (IllegalStateException e) {
+			System.out.println();
+		}
 	}
 
 	public static void Example1()
@@ -35,6 +46,15 @@ public class ExceptionHandling {
 		/*catch(Derived d)  { 
 			System.out.println("Caught derived class exception"); 
 		}*/
+	}
+
+	// Inner exceptions - Caused By statements
+	public static void getBookIds(Integer id) {
+		try {
+			id.toString();
+		} catch (NullPointerException e) {
+			throw new IllegalStateException("A book has a null property", e);
+		}
 	}
 
 }

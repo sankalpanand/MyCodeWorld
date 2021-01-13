@@ -51,7 +51,7 @@ public class RadixSort {
 				}
 			}
 			
-			// This will be the index of the array while putting elements back to the array after every bit iteration
+			// This will be the getCellIndex of the array while putting elements back to the array after every bit iteration
 			int a = 0;
 			
 			// This for loop iterates over each bucket to store their numbers back in the array

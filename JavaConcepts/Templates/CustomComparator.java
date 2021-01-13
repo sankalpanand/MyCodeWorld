@@ -19,13 +19,29 @@ public class CustomComparator {
 
 		Arrays.sort(fruits);
 
-		int i=0;
-		for(Fruit temp: fruits){
-			System.out.println("fruits " + ++i + " : " + temp.getFruitName() + 
-					", Quantity : " + temp.getQuantity());
-		}
+//		int i=0;
+//		for(Fruit temp: fruits){
+//			System.out.println("fruits " + ++i + " : " + temp.getFruitName() +
+//					", Quantity : " + temp.getQuantity());
+//		}
+
+        CustomComparator obj = new CustomComparator();
+        obj.comparisonExamples();
 
 	}
+
+	/*
+    x > 0 - this value is greater than the param
+    x < 0 - this value is less than the param
+    x = 0.
+
+	 */
+	public void comparisonExamples() {
+        System.out.println("A".compareTo("B"));
+        System.out.println("B".compareTo("A"));
+        System.out.println(Integer.compare(1, 2));
+        System.out.println(Integer.compare(2, 1));
+    }
 
 }
 

@@ -1,7 +1,9 @@
-package Threading;
+package JavaConcepts.Threading;
 
 public class Method1ImplementingRunnable {
 
+	// However, one feature lacking in Runnable is that we cannot make a thread return result when it terminates,
+	// i.e. when run() completes. For supporting this feature, the Callable interface is present in Java.
 	public static void main(String[] args) 
 	{
 		RunnableDemo R1 = new RunnableDemo( "Thread-1");

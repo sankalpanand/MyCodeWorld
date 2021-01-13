@@ -1,4 +1,4 @@
-package Threading;
+package JavaConcepts.Threading;
 
 public class Method2ThreadClass 
 {

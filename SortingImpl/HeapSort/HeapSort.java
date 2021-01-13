@@ -85,7 +85,7 @@ public class HeapSort {
 			maxHeap.array[parent] = temp;
 
 			// This swap might have invalidated the subtrees within, so they need to be heapified again.
-			// Now, the root is no longer the index.
+			// Now, the root is no longer the getCellIndex.
 			// Root may have been shifted to the 'largest' position 
 			maxHeapify(maxHeap, largest);
 		}
