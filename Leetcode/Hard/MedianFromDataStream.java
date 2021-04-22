@@ -29,7 +29,7 @@ class MedianFinder
     }
 
     // Remember we cannot just push the item into large,
-    // We should push the new number into small and pop the maximum item from small then push it into large
+    // We should push the new number into small and removeNode the maximum item from small then push it into large
     public void addNum(int num) {
         if (even)
         {

@@ -57,7 +57,6 @@ public class MeetingRooms2 {
 			else
 				heap.offer(intervals[i]);
 			
-			
 			// Don't forget to put the prev back
 			heap.offer(prev);
 			

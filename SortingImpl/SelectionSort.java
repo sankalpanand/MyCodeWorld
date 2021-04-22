@@ -25,6 +25,7 @@ public class SelectionSort {
 	}
 
 	// https://www.youtube.com/watch?v=GUDLRan2DWM
+    // https://www.youtube.com/watch?v=cqh8nQwuKNE
 	public static int[] selectionSort(int[] nums)
 	{
 		/* nums[0] to nums[n-1] is the array to sort */
@@ -38,13 +39,13 @@ public class SelectionSort {
 		    /* assume the min is the first element */
 		    iMin = j;
 		    
-		    /* Get the minimum in the remaining array after j'th getCellIndex */
+			// Inner loop starts at the first unsorted item and continues through the end of the list
 		    for ( i = j+1; i<n; i++) 
 		    {
 		        /* if this element is less, then it is the new minimum */
 		        if (nums[i] < nums[iMin]) 
 		        {
-		            /* found new minimum; remember its getCellIndex */
+		            /* found new minimum; remember its index */
 		            iMin = i;
 		        }
 		    }

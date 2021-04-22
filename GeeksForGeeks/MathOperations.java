@@ -9,9 +9,21 @@ public class MathOperations {
 		System.out.println(divide(8,-2));
 	}
 
+	// https://www.youtube.com/watch?v=QFq5vbSlXHU
+	/*
+	A	B	Sum		Carry
+	0	0	0		0
+	0	1	1		0
+	1	0	1		0
+	1	1	0		1
+
+	So Sum = A ^ B, Carry = A & B
+
+	XOR (x ^ y) is addition without carry. (x & y) is the carry-out from each bit. (x & y) << 1 is the carry-in to each bit.
+	 */
 	public static int Sum(int x, int y)
 	{
-		// Iterate till there is no carry  
+		// Iterate till there is no carry
 		while (y != 0)
 		{
 			// carry now contains common set bits of x and y
@@ -25,6 +37,14 @@ public class MathOperations {
 		}
 		return x;
 	}
+
+    public static int AddRecursive(int x, int y)
+    {
+        if (y == 0)
+            return x;
+        else
+            return AddRecursive( x ^ y, (x & y) << 1);
+    }
 
 	public static int Diff(int x, int y)
 	{

@@ -124,7 +124,7 @@ public class BinaryTreePostorderTraversal {
 
 			// If the current node is the left or right child of the previous node, 
 			// then keep going down the tree and add left/right node to stack
-			// If you have reached the leaf, process it and pop stack
+			// If you have reached the leaf, process it and removeNode stack
 			// prev == null is the situation for the root node
 			if(prev == null || prev.left == curr || prev.right == curr)
 			{
@@ -132,7 +132,7 @@ public class BinaryTreePostorderTraversal {
 				else if(curr.right != null) stack.push(curr.right);
 
 				// Leaf node reached
-				// When there are no children for current node, i.e., the current node is a leaf, pop it from the stack. 
+				// When there are no children for current node, i.e., the current node is a leaf, removeNode it from the stack.
 				else
 				{
 					stack.pop();
@@ -144,7 +144,7 @@ public class BinaryTreePostorderTraversal {
 			// This is when we are retracting or going up. We need to check if there is something on the right. 
 			// because of second part in here- <left><right><root>
 			// Go up the tree from left node. Need to check if there is a right child
-			// if yes, push it to stack otherwise, process parent and pop stack
+			// if yes, push it to stack otherwise, process parent and removeNode stack
 			else if(curr.left == prev)
 			{
 				if(curr.right != null)
@@ -161,7 +161,7 @@ public class BinaryTreePostorderTraversal {
 			// This is when we are retracting or going up
 			// Now, I am done with left and right in here- <left><right><root>. I can process the root.
 			// go up the tree from right node 
-			// after coming back from right node, process parent node and pop stack.
+			// after coming back from right node, process parent node and removeNode stack.
 			else if(curr.right == prev)
 			{
 				stack.pop();

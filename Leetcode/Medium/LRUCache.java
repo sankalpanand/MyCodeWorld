@@ -1,45 +1,42 @@
 package Leetcode.Medium;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
-class DLinkedNode 
+public class LRUCache
 {
-    int key;
-    int value;
+	class LRUNode
+	{
+		int key;
+		int value;
 
-    DLinkedNode pre;
-    DLinkedNode next;
-}
+		LRUNode pre;
+		LRUNode next;
+	}
 
-public class LRUCache 
-{
-	private Map<Integer, DLinkedNode> cache = new HashMap<>();
+	private Map<Integer, LRUNode> cache = new HashMap<>();
 	private int count;
 	private int capacity;
-	private DLinkedNode head;
-	private DLinkedNode tail;
-	
-	
+	private LRUNode head;
+	private LRUNode tail;
 	
 	/** It will create an LRU cache with just two dummy nodes, head and tail linked to each other */
 	public LRUCache(int capacity) {
 	    this.count = 0;
 	    this.capacity = capacity;
 
-	    head = new DLinkedNode();
+	    head = new LRUNode();
 	    head.pre = null;
 
-	    tail = new DLinkedNode();
+	    tail = new LRUNode();
 	    tail.next = null;
 
 	    head.next = tail;
 	    tail.pre = head;
 	}
 	
-	/** Always add the new node right after head; */
-	private void addNode(DLinkedNode node)
+	/** New node is added always at the head */
+	private void addNode(LRUNode node)
 	{
 		// Step 1: Link the node's left and right pointers
 	    node.pre = head;
@@ -52,34 +49,30 @@ public class LRUCache
 	}
 
 	/** Remove an existing node from the linked list. */
-	private void removeNode(DLinkedNode node) {
-	    DLinkedNode pre = node.pre;
-	    DLinkedNode next = node.next;
+	private void removeNode(LRUNode node) {
+	    LRUNode pre = node.pre;
+	    LRUNode next = node.next;
 
 	    pre.next = next;
 	    next.pre = pre;
 	}
 
-	/**
-	 * Move certain node in between to the head.
-	 */
-	private void moveToHead(DLinkedNode node)
+	/** Move certain node in between to the head. */
+	private void moveToHead(LRUNode node)
 	{
 	    this.removeNode(node);
 	    this.addNode(node);
 	}
 
-	// pop the current tail. 
-	private DLinkedNode popTail() {
-	    DLinkedNode res = tail.pre;
+	/** pop the current tail. */
+	private LRUNode popTail() {
+	    LRUNode res = tail.pre;
 	    this.removeNode(res);
 	    return res;
 	}
 
-	
-
 	public int get(int key) {
-	    DLinkedNode node = cache.get(key);
+	    LRUNode node = cache.get(key);
 	    if(node == null) {
 	        return -1; // should raise exception here.
 	    }
@@ -92,11 +85,11 @@ public class LRUCache
 
 
 	public void put(int key, int value) {
-	    DLinkedNode node = cache.get(key);
+	    LRUNode node = cache.get(key);
 
 	    // It means, it is a new key
 	    if(node == null) {
-	        DLinkedNode newNode = new DLinkedNode();
+	        LRUNode newNode = new LRUNode();
 	        newNode.key = key;
 	        newNode.value = value;
 
@@ -109,7 +102,7 @@ public class LRUCache
 	        // If size has over shot capacity, drop one LRU item
 	        if(count > capacity) {
 	            // pop the tail
-	            DLinkedNode tail = this.popTail();
+	            LRUNode tail = this.popTail();
 	            this.cache.remove(tail.key);
 	            count--;
 	        }

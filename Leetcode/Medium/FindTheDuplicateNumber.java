@@ -12,7 +12,7 @@ public class FindTheDuplicateNumber {
     }
 
     // Several approaches here - https://medium.com/solvingalgo/solving-algorithmic-problems-find-a-duplicate-in-an-array-3d9edad5ad41
-
+    // Video explanation for three approaches - https://www.youtube.com/watch?v=32Ll35mhWg0
     public int findDuplicate(int[] nums) {
         int n=nums.length-1;
         int left=0, right=n;

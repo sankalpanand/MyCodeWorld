@@ -35,7 +35,8 @@ public class RepeatedDNASequences {
         return list;
     }
     
- // Accepted solution with Bit Manipulation
+    // Accepted solution with Bit Manipulation
+    // https://leetcode.com/problems/repeated-dna-sequences/discuss/53867/Clean-Java-solution-(hashmap-%2B-bits-manipulation)
     public static List<String> findRepeatedDnaSequences(String s) {
         Set<Integer> firstTime = new HashSet<Integer>();
         Set<Integer> secondTime = new HashSet<Integer>();
@@ -67,6 +68,7 @@ public class RepeatedDNASequences {
             // For this if condition to be true, firstTime.add() should be false.
             // firstTime.add() will be false when there is already the same number present.
             // How it will behave?
+
             // First time - firstTime.add(sequence) will return T
             // !firstTime.add(sequence) will become F
             // secondTime.add(sequence) will NOT be executed

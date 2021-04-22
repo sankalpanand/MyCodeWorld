@@ -14,7 +14,7 @@ public class MajorityElement {
 
 	}
 
-	// https://www.youtube.com/watch?v=cLuLy6dy7n8
+	// https://www.youtube.com/watch?v=cLuLy6dy7n8 - Uses hashmap to keep the count
     public static int majorityElement(int[] nums)
     {
         if(nums.length == 1) {
@@ -38,18 +38,26 @@ public class MajorityElement {
 
     // Boyer-Moore Majority Vote
     // https://www.youtube.com/watch?v=n5QY3x_GNDg
-    public int majorityElementO1(int[] num) {
+    public int majorityElement1(int[] num) {
 
         int major=num[0], count = 1;
-        for(int i=1; i<num.length;i++){
-            if(count==0){
-                count++;
+
+        for(int i=1; i<num.length;i++)
+        {
+            if(count==0)
+            {
+                count = 1;
                 major=num[i];
-            }else if(major==num[i]){
+            }
+            else if(major==num[i])
+            {
                 count++;
-            }else count--;
+            }
+            else
+                count--;
 
         }
+
         return major;
     }
 

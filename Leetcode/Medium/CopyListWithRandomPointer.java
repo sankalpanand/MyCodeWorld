@@ -28,7 +28,7 @@ public class CopyListWithRandomPointer {
         while (cur != null)
         {
             if (cur.random != null) {
-                Node clone = cur.next;
+                Node clone = cur.next;          // cur.next gives you the clone now because of the previous while loop
                 clone.random = cur.random.next; // Next because clone.next will point to a random node in the original list and that node's "next" will be the cloned node.
             }
 

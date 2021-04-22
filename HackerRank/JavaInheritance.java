@@ -1,3 +1,4 @@
+package HackerRank;
 
 public class JavaInheritance {
 
@@ -12,16 +13,21 @@ public class JavaInheritance {
 
 }
 
-abstract class Arithmetic
-{
-	abstract int add(int a, int b);
-	
+class GrandParent {
+
 }
 
-class Adder extends Arithmetic
-{
-	public int add(int a, int b)
-	{
-		return a+b;
-	}
+class Parent {
+
+    public void method1(String a, int b) {
+        System.out.println("method 1 in Parent called");
+    }
+
 }
+
+class Child extends Parent {
+    public void method1(String a, int b) {
+        System.out.println("method 1 in Parent called");
+    }
+}
+

@@ -9,8 +9,16 @@ public class SortedArrayToBST {
 
 	public static void main(String[] args) {
 		int[] nums = {1,2,3,4,5,6,7,8,9,10};
+
+		SortedArrayToBST obj = new SortedArrayToBST();
+		obj.sortedArrayToBST_Iterative_BFS(nums);
 	}
 
+	// Most basic solution.
+    // Video explanation
+    //---------------------------------------------------------------------------
+    // RECURSIVE SOLUTION
+    //---------------------------------------------------------------------------
     public TreeNode sortedArrayToBST(int[] num) {
         if (num.length == 0) {
             return null;
@@ -24,7 +32,7 @@ public class SortedArrayToBST {
             return null;
         }
 
-        int mid = (low + high) / 2;
+        int mid = low + (high - low) / 2;
         TreeNode node = new TreeNode(num[mid]);
         node.left = helper(num, low, mid - 1);
         node.right = helper(num, mid + 1, high);
@@ -35,15 +43,17 @@ public class SortedArrayToBST {
     private static class MyNode {
         TreeNode node;
         int leftBound, rightBound;
-        public MyNode(TreeNode node, int left, int right) {
+        public MyNode(TreeNode node, int leftBound, int rightBound) {
             this.node = node;
-            this.leftBound = left;
-            this.rightBound = right;
+            this.leftBound = leftBound;
+            this.rightBound = rightBound;
         }
     }
 
-    // Iterative version
-    public static TreeNode sortedArrayToBST_Iterative_DFS(int[] nums) {
+    //---------------------------------------------------------------------------
+    // ITERATIVE DFS SOLUTION USING STACK
+    //---------------------------------------------------------------------------
+    public TreeNode sortedArrayToBST_Iterative_DFS(int[] nums) {
         if (nums == null || nums.length == 0)
             return null;
 
@@ -71,6 +81,11 @@ public class SortedArrayToBST {
         return root;
     }
 
+    //---------------------------------------------------------------------------
+    // ITERATIVE BFS SOLUTION USING QUEUE
+    //---------------------------------------------------------------------------
+    // It is basically same as DFS one but the order in which we visit the rows is different.
+    // It doesn't make any difference because each node passes down a fixed set of upper and lower bounds, no matter in what order you visit them.
     public TreeNode sortedArrayToBST_Iterative_BFS(int[] nums) {
         if (nums == null || nums.length == 0)
             return null;

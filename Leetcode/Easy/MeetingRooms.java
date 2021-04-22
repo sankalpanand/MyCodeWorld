@@ -19,14 +19,16 @@ public class MeetingRooms {
             return false;
         }
 
-        Arrays.sort(intervals, new Comparator<int[]>(){
-            public int compare(int[] i1, int[] i2){
-                return i1[0]-i2[0];
-            }
-        });
+//        Arrays.sort(intervals, new Comparator<int[]>(){
+//            public int compare(int[] i1, int[] i2){
+//                return i1[0]-i2[0];
+//            }
+//        });
+
+        Arrays.sort(intervals, (int a[], int b[]) -> a[0]-b[0]);
 
         for(int i=0; i<intervals.length-1; i++) {
-            // If next start is less than currnt end time
+            // If next start is less than current end time
             if(intervals[i+1][0]<intervals[i][1]) {
                 return false;
             }

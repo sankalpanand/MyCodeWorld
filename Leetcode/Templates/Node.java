@@ -7,12 +7,12 @@ public class Node {
     public Node next;
     public Node parent;
     public Node random;
+    public Node child;
+    public Node prev;
 
     public Node(int val, Node next, Node random) {
         this.val = val;
         this.next = next;
         this.random = random;
     }
-
-
 }
