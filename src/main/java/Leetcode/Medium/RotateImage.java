@@ -13,6 +13,37 @@ public class RotateImage {
 		obj.print(matrix);
 	}
 
+	// Neetcode - https://www.youtube.com/watch?v=fMSJSS7eO1w
+	// Leetcode - https://leetcode.com/problems/rotate-image/
+	public void rotate(int[][] matrix) {
+		int l = 0;
+		int r = matrix.length - 1;
+
+		while (l < r) {
+			for (int i = 0; i < (r - l); i++) {
+				int top = l;
+				int bottom = r;
+
+				// Save the top-left element
+				int topLeft = matrix[top][l + i];
+
+				// Move bottom-left into top-left
+				matrix[top][l + i] = matrix[bottom - i][l];
+
+				// Move bottom-right into bottom-left
+				matrix[bottom - i][l] = matrix[bottom][r - i];
+
+				// Move top-right into bottom-right
+				matrix[bottom][r - i] = matrix[top + i][r];
+
+				// Move top-left into top-right
+				matrix[top + i][r] = topLeft;
+			}
+			r -= 1;
+			l += 1;
+		}
+	}
+
 	/*
 	 * The idea is to transpose a matrix, 
 	 * then flip the matrix horizontally to rotate clockwise and vertically to rotate counter clockwise.
@@ -35,7 +66,7 @@ public class RotateImage {
 	 * 
 	 * */
 
-	public void rotate(int[][] matrix) 
+	public void rotate_transpose(int[][] matrix)
 	{
 		for(int i = 0; i<matrix.length; i++)
 		{
@@ -73,112 +104,4 @@ public class RotateImage {
 			System.out.println();
 		}
 	}
-
-	public static void Question6_2() 
-	{
-		int n = 4;
-		int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-
-		for (int layer = 0; layer < n/2; layer++) // will run for 0, 1
-		{
-			int first = layer;			// 0, 
-			int last = n - 1 - layer;	// 3
-
-			for(int i = first; i < last; ++i) 	// (0,1,2) and ()
-			{
-				int offset = i - first;
-				int top = matrix[first][i]; // save top
-
-				// left -> top
-				matrix[first][i] = matrix[last-offset][first];          
-
-				// bottom -> left
-				matrix[last-offset][first] = matrix[last][last - offset]; 
-
-				// right -> bottom
-				matrix[last][last - offset] = matrix[i][last]; 
-
-				// top -> right
-				matrix[i][last] = top; // right <- saved top
-			}
-		}
-
-		// For display
-		for(int i=0; i<4; i++)
-		{
-			for(int j=0; j<4; j++)
-			{
-				System.out.print(matrix[i][j] + " ");
-			}
-			System.out.println();
-		}				
-	}
-
-
-
-	// Leet code
-	public static void Question6_3() 
-	{
-		int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-		int m = matrix.length;
-
-		int[][] result = new int[m][m];
-
-		for(int i=0; i<m; i++){
-			for(int j=0; j<m; j++){
-				result[j][m-1-i] = matrix[i][j];
-			}
-		} 
-
-		for(int i=0; i<m; i++){
-			for(int j=0; j<m; j++){
-				matrix[i][j] = result[i][j];
-			}
-		} 
-
-		for(int i=0; i<4; i++){
-			for(int j=0; j<4; j++){
-				System.out.print(result[i][j] + " ");
-			}
-			System.out.println();
-		}			
-	}
-
-	// Using Stringbuilder
-	public static void Question6() 
-	{
-		char[][] image = {{'a','b','c','d'},{'e', 'f', 'g', 'h'},{'i', 'j', 'k', 'l'},{'m', 'n', 'o', 'p'}};
-		StringBuffer sb = new StringBuffer();
-
-		for(int i=0; i<4; i++)
-		{
-			for(int j=0; j<4; j++)
-			{
-				sb.append(image[i][j]);
-			}			
-		}
-
-		int k = 15;
-		for(int i=0; i < 4; i++)
-		{
-			for(int j=3; j >= 0; j--)
-			{
-				image[j][i] = sb.charAt(k);
-				k--;
-			}			
-		}
-
-		// For display
-		for(int i=0; i<4; i++)
-		{
-			for(int j=0; j<4; j++)
-			{
-				System.out.print(image[i][j]);
-			}
-			System.out.println();
-		}
-
-		// System.out.println(sb.toString());
-	}
-
 }

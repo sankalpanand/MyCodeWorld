@@ -24,7 +24,7 @@ public class RandomNumberInStream {
 	    	Random rand = new Random();
 	    	int randInt = rand.nextInt(count); 
 	    		 
-	        // If i is equal to 'count – 1', update the result as x.
+	        // If i is equal to 'count - 1', update the result as x.
 	        if (randInt == count - 1)
 	            res  = x;
 	    }

@@ -1,9 +1,8 @@
-package LinkedList;
+package DataStructureImplementations.LinkedList;
 
 
-public class Operations<K, V>
-{
-	public Node<K, V> randomLinkedList(int N, int min, int max) 
+public class Operations<K, V> {
+	public Node<K, V> randomLinkedList(int N, int min, int max)
 	{
 		Node<K, V> root = new Node<K, V>(randomIntInRange(min, max), null, null);
 		Node<K, V> prev = root;

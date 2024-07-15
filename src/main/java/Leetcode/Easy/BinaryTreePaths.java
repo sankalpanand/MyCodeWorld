@@ -2,6 +2,7 @@ package Leetcode.Easy;
 
 import java.util.ArrayList;
 import java.util.List;
+import Leetcode.Templates.TreeNode;
 
 /* Given a binary tree, return all root-to-leaf paths. */
 

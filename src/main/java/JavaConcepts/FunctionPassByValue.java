@@ -10,8 +10,8 @@ public class FunctionPassByValue {
 	// Variables are always passed by value
 	public static void passByValue()
 	{
-		Integer i = new Integer(10);
-		Integer j = new Integer(20);
+		Integer i = 10;
+		Integer j = 20;
 		swap(i, j);
 		System.out.println("i = " + i + ", j = " + j);
 	}

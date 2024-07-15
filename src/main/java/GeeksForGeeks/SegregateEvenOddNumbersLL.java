@@ -1,3 +1,6 @@
+package GeeksForGeeks;
+
+import Leetcode.Templates.Node;
 
 public class SegregateEvenOddNumbersLL {
 
@@ -6,8 +9,7 @@ public class SegregateEvenOddNumbersLL {
 
 	}
 	
-	public static void SegregateEvenOdd(Node head)
-	{
+	public static void SegregateEvenOdd(Node head) {
 		Node end = head;
 		Node prev = null;
 		Node curr = head;

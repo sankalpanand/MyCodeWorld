@@ -11,44 +11,16 @@ public class FindTheDuplicateNumber {
 
     }
 
-    // Several approaches here - https://medium.com/solvingalgo/solving-algorithmic-problems-find-a-duplicate-in-an-array-3d9edad5ad41
-    // Video explanation for three approaches - https://www.youtube.com/watch?v=32Ll35mhWg0
-    public int findDuplicate(int[] nums) {
-        int n=nums.length-1;
-        int left=0, right=n;
-
-        while(left<right) {
-            int mid = left + (right-left)/2;
-            int count = numBelow(nums, mid);
-
-            if(count > mid)
-                right=mid;
-            else
-                left=mid+1;
-        }
-
-        return left;
-    }
-
-    public int numBelow(int[] nums, int target) {
-        int result=0;
-
-        for(int i=0; i<nums.length; i++) {
-            if (nums[i] <= target)
-                result++;
-        }
-
-        return result;
-    }
+    // Leetcode - https://leetcode.com/problems/find-the-duplicate-number/description/
+    // Neetcode - https://www.youtube.com/watch?v=wjYnzkAhcNk
 
     // Floyd's Cycle Detection Algo
-    public int findDuplicate1(int[] nums) {
+    public int findDuplicate(int[] nums) {
         int slow = 0;
         int fast = 0;
         int finder = 0;
 
-        while (true)
-        {
+        while (true) {
             slow = nums[slow];
             fast = nums[nums[fast]];
 
@@ -56,8 +28,7 @@ public class FindTheDuplicateNumber {
                 break;
         }
 
-        while (true)
-        {
+        while (true) {
             slow = nums[slow];
             finder = nums[finder];
 

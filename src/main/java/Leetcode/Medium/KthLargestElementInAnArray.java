@@ -24,12 +24,14 @@ public class KthLargestElementInAnArray {
 
         // Runner
         KthLargestElementInAnArray obj = new KthLargestElementInAnArray();
-        int[] nums = {3,2,1,5,6,4};
+        int[] nums = {3,2,1,5,6,4}; // => 1,2,3,4,5,6, len=6, k=2, len-k=4
         System.out.println(obj.findKthLargest(nums, 2));
     }
 
+    // https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/60294/solution-explained/
+
 	// Solution 1 - mergeSort and pick Kth element
-    // O(N lg K) running time + O(K) memory
+    // O(N log N) running time + O(1) memory
     public int findKthLargest1(int[] nums, int k) {
         final int N = nums.length;
         Arrays.sort(nums);
@@ -37,6 +39,7 @@ public class KthLargestElementInAnArray {
     }
 
     // Solution 2 - Priority Queue
+	// O(N log K) running time + O(K) memory
     public int findKthLargest2(int[] nums, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
 
@@ -52,66 +55,51 @@ public class KthLargestElementInAnArray {
 
 
 
-	// http://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/
-	public int findKthLargest(int[] nums, int k)
-	{
+	// Neetcode - https://www.youtube.com/watch?v=XEmy13g1Qxc
+	// Leetcode - https://leetcode.com/problems/kth-largest-element-in-an-array/
+	// O(N) best case / O(N^2) worst case running time + O(1) memory
+	public int findKthLargest(int[] nums, int k) {
 		int len = nums.length;
 
-		// We are sending k as len-k because we are for 2nd largest element in an array of size 10, we will search for 8th one.
-		return helper(nums, len-k, 0, len-1);
+		// We are sending k as len-k because we are searching for 2nd largest element in an array of size 10, we will search for 8th one.
+		return quickSelect(nums, 0, len-1, len-k);
 	}
 
-	public int helper(int[] nums, int searchIndex, int start, int end)
-	{
+	public int quickSelect(int[] nums, int start, int end, int searchIndex) {
 		// Step 1: Partition the array around last element and get position of pivot
-		int pIndex = partition(nums, start, end);
-
-		// Step 2: If position = k, return element
-		if(pIndex == searchIndex) {
-			return nums[pIndex];
-		}
-
-		// Step 3: pIndex usually means that all the elements lesser than it lies towards its left
-        // and the ones greater than it lie towards its right.
-		// Since the search getCellIndex is less than the pIndex, the search element should be in the LHS.
-		else if(pIndex > searchIndex)
-		{
-			return helper(nums, searchIndex, start, pIndex - 1);
-		}
-
-		// Step 4: Since the search getCellIndex is more than the pIndex, the search element should be in the RHS.
-		else
-			return helper(nums, searchIndex, pIndex + 1, end);
-
-	}
-
-	// It considers the last element as the pivot
-	// Moves all smaller elements to the left of it
-	// Greater elements to the right of it
-	public int partition(int[] nums, int start, int end)
-	{
 		int pivot = nums[end];
 		int pIndex = start;
 
-		for(int i = start; i <= end-1; i++) {
-			if(nums[i] < pivot)
-			{
+		// If nums[i] is less than pivot, then i and pIndex both will move. Otherwise only i will move.
+		for(int i=start; i <= end-1; i++) {
+			if(nums[i] < pivot) {
 				swap(nums, i, pIndex);
 				pIndex++;
 			}
 		}
 
 		swap(nums, pIndex, end);
-		return pIndex;
+
+		// Step 3: pIndex usually means that all the elements lesser than it lies towards its left
+        // and the ones greater than it lie towards its right.
+		// Since the search index is less than the pIndex, the search element should be in the LHS.
+		if(pIndex > searchIndex) {
+			return quickSelect(nums, start, pIndex - 1, searchIndex);
+		}
+
+		// Step 4: Since the search index is more than the pIndex, the search element should be in the RHS.
+		else if (pIndex < searchIndex) {
+			return quickSelect(nums, pIndex + 1, end, searchIndex);
+		}
+
+		else {
+			return nums[pIndex];
+		}
 	}
 
-	public void swap(int[] nums, int a, int b)
-	{
+	public void swap(int[] nums, int a, int b) {
 		int temp = nums[a];
 		nums[a] = nums[b];
 		nums[b] = temp;
 	}
-
-
-
 }

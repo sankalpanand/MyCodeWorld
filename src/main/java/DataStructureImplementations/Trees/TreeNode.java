@@ -1,5 +1,4 @@
 package DataStructureImplementations.Trees;
-import DataStructureImplementations.Trees.AssortedMethods;
 
 /* One node of a binary tree. The data element stored is a single 
  * character.
@@ -85,6 +84,6 @@ public class TreeNode {
 	}
 
 	public void print() {
-		BTreePrinter.printNode(this);
+		BTreePrinter1.printNode(this);
 	}
 } 

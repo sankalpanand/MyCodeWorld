@@ -1,6 +1,5 @@
 package Leetcode.Medium;
 
-import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class EncodeDecodeTinyURL {
         }
         md.update(longUrl.getBytes());
         byte byteData[] = md.digest();
-        String myHash = DatatypeConverter.printHexBinary(byteData).substring(0, 6);
+        String myHash = ""; // DatatypeConverter.printHexBinary(byteData).substring(0, 6);
         if(!map.containsKey(myHash)) {
             map.put(myHash, longUrl);
         }

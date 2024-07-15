@@ -1,6 +1,7 @@
 package Leetcode.Easy;
 
 import java.util.Stack;
+import Leetcode.Templates.TreeNode;
 
 public class RangeSumOfBST {
     public static void main(String[] args) {

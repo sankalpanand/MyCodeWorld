@@ -48,7 +48,7 @@ public class EggDropProblem
 				for (x = 1; x <= f; x++)
 				{
 					// eggFloor[i-1][x-1] = Egg breaks at x floor. We need to check with one less egg for all the remaining x-1 floors
-					// eggFloor[i][j-x] = If the egg doesn’t break after dropping from the xth floor, then we only need to check for floors higher than x; so the problem reduces to k-x floors and n eggs.
+					// eggFloor[i][j-x] = If the egg doesnt break after dropping from the xth floor, then we only need to check for floors higher than x; so the problem reduces to k-x floors and n eggs.
 					// Since we need to minimize the number of trials in worst case, we take the maximum of two cases.
 					res = 1 + Math.max(eggFloor[e-1][x-1], eggFloor[e][f-x]);
 

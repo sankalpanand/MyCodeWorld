@@ -31,11 +31,11 @@ public class TwoSum {
         int[] result = new int[2];
         Map<Integer, Integer> map = new HashMap<>();
         
-        for(int i=0; i<nums.length; i++)
-        {
+        for(int i=0; i<nums.length; i++) {
+
             int numberToFind = target - nums[i];
-            if(map.containsKey(numberToFind))
-            {
+
+            if(map.containsKey(numberToFind)) {
                 result[0] = map.get(numberToFind);
                 result[1] = i;
                 return result;

@@ -1,3 +1,5 @@
+package Leetcode.Easy;
+
 import Leetcode.ParentClasses.Tree;
 import Leetcode.Templates.TreeNode;
 
@@ -8,34 +10,15 @@ public class LowestCommonAncestor extends Tree {
 
 	}
 
-	// This is my approach. It doesn't work when the tree becomes large. Gives TLE.
-	public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
-		if(root == null || root == p || root == q) return root;
-		boolean pOnLeft = exists(root.left, p);
-		boolean pOnRight = exists(root.right, p);
-
-		boolean qOnLeft = exists(root.left, q);
-		boolean qOnRight = exists(root.right, q);
-
-
-		if((pOnLeft & qOnRight) || (qOnLeft & pOnRight)) 	return root;
-		else if(pOnLeft & qOnLeft) 							return lowestCommonAncestor(root.left, p, q);
-		else if(pOnRight & qOnRight)  						return lowestCommonAncestor(root.right, p, q);
-		return null;
-	}
-
-
-	public boolean exists(TreeNode root, TreeNode node) {
-		if(root == null) return false;
-		else if(root == node) return true;
-		else return exists(root.left, node) || exists(root.right, node);
-	}
-
+	// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/description/
+    // Neetcode - https://www.youtube.com/watch?v=gs2LMfuOR9k
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+	    // Means both the nodes are to the left
         if(root.val > p.val && root.val > q.val) {
             return lowestCommonAncestor(root.left, p, q);
         }
 
+        // Means both the nodes are to the right
         else if(root.val < p.val && root.val < q.val) {
             return lowestCommonAncestor(root.right, p, q);
         }
@@ -45,22 +28,7 @@ public class LowestCommonAncestor extends Tree {
         }
     }
 
-    // Stefan Pochmann approach
-    // Walk down from the whole tree's root as long as both p and q are in the same subtree
-    // To do that check if their values are BOTH smaller or BOTH greater than root's.
-    // This walks straight from the root to the LCA, not looking at the rest of the tree, so it's pretty much as fast as it gets.
-    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
-        while ((root.val - p.val) * (root.val - q.val) > 0) {
-
-            // Go down. Left or right?
-            // If the left was smaller, you should be going down the left.
-            // If the right was smaller, you should be going down the right.
-            root = p.val < root.val ? root.left : root.right;
-        }
-
-        return root;
-    }
-
+    // Another approach... if r-p * r-q is negative, then it is the root
     public TreeNode lowestCommonAncestor2R(TreeNode root, TreeNode p, TreeNode q) {
 
 	    // Ideally if (root.val - p.val) * (root.val - q.val) < 0, Then both p and q are on the different sides and we return the root as its the LCA

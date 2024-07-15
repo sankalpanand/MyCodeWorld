@@ -1,3 +1,6 @@
+package GeeksForGeeks;
+
+import Leetcode.Templates.TreeNode;
 
 public class MorrisTraversal {
 
@@ -18,13 +21,18 @@ public class MorrisTraversal {
 		
 		while(current != null)
 		{
+			// Keep going right as long as left child is null
 			if(current.left == null)
 			{
 				System.out.println(current.val);
 				current = current.right;
 			}
+
+			// The whole point of this else block is to find the inorder predecessor for the root
+			// That will be the right most node in the left sub tree
 			else // There is a left child
 			{
+				// Go into the left child
 				pre = current.left;
 				
 				// LST mein right jaate jaao...
@@ -33,8 +41,8 @@ public class MorrisTraversal {
 					pre = pre.right;
 				} // By this point, pre has become the rightmost node of RST
 				
-				/* Yahan tak pre ka right null hi hoga because wo leaf node hai 
-				 * which is ideally the predecessor of root. Ab, uska right wapas upar root ko point kar do.
+				/* Yahan tak pre ka right null hi hoga because wo leaf node hai which is ideally the predecessor of root.
+				 * Ab, uska right wapas upar root ko point kar do.
 				 * As per the algo, take a step towards left. 
 				 * See stackoverflow link */
 				if(pre.right == null)

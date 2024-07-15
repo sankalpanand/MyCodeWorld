@@ -182,7 +182,7 @@ public class TheMaze2 {
 
     public void dijkstra_PQ(int[][] maze, int[] start, int[][] distance) {
         int[][] dirs={{0,1},{0,-1},{-1,0},{1,0}};
-        PriorityQueue< int[] > queue = new PriorityQueue < > ((a, b) -> a[2] - b[2]);
+        PriorityQueue< int[] > queue = new PriorityQueue <> ((a, b) -> a[2] - b[2]);
 
         // We put the element coordinates and the distance in the queue
         queue.offer(new int[]{start[0], start[1], 0});

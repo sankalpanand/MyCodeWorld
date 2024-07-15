@@ -11,7 +11,7 @@ public class NumberOfIslands2 {
         00  01  02  03  04  05  06  07  08
         10  11  12  13  14  15  16  17  18
         20  21  22  23  24  25  26  27  28
-        30  31  (32)  33  34  35  36  37  38
+        30  31 (32)  33  34  35  36  37  38
         40  41  42  43  44  45  46  47  48
         50  51  52  53  54  55  56  57  58
         60  61  62  63  64  65  66  67  68
@@ -26,115 +26,87 @@ public class NumberOfIslands2 {
         27 28 (29)  30 31 32 33 34 35
     */
 
-    private int[][] dir = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+    public static void main(String[] args) {
+        NumberOfIslands2 obj = new NumberOfIslands2();
+        int[][] positions = new int[][] {{0,0},{0,1},{1,2},{2,1}};
+        System.out.println(obj.numIslands2(3, 3, positions));
+    }
 
+    // Leetcode - https://leetcode.com/problems/number-of-islands-ii/description/
+    // Solution taken from - https://leetcode.com/problems/number-of-islands-ii/solutions/75470/easiest-java-solution-with-explanations/
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
-        UnionFind2D islands = new UnionFind2D(m, n);
-        List<Integer> ans = new ArrayList<>();
+        Integer[] parent = new Integer[m*n];
+        Integer[] rank = new Integer[m*n];
+        Arrays.fill(parent, -1);
+        Arrays.fill(rank, 0);
 
-        // Go through the positions
+        List<Integer> result = new ArrayList<>();
+        if (m == 0 || n == 0 || positions == null || positions.length == 0 || positions[0].length == 0) {
+            return result;
+        }
+
+        int[][] DIRS = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int count = 0;
         for (int[] position : positions) {
             int x = position[0];
             int y = position[1];
+            int positionIndex = x * n + y;
 
-            // Add karo aur jahan add kiya hai wahan ki roots save karo
-            int p = islands.add(x, y);
+            if (parent[positionIndex] != -1) {   // duplicate position
+                result.add(count);
+                continue;
+            }
 
-            // Don't check neighbors if this cell has already been added
-            if(p != 0) {
-                for (int[] d : dir) {
-                    // Aage pichhe wali cells ka roots nikaalo
-                    int q = islands.getNeighborId(x + d[0], y + d[1]);
+            parent[positionIndex] = positionIndex;
 
-                    // Check karo jahan add kiya hai wo aur padosi ki ID same to nahi hai
-                    if (q > 0 && !islands.find(p, q))
+            // With every position, we increase the count by 1
+            // Whenever we perform union operation, we decrement the count by 1
+            count++;
+            for (int[] dir : DIRS) {
+                int r = x + dir[0];
+                int c = y + dir[1];
+                if (isValid(parent, m, n, r, c)) {
 
-                        // Agar same parent hai, to dono ko unite kar do
-                        islands.unite(p, q);
+                    int neighborIndex = r * n + c;
+                    if (union(positionIndex, neighborIndex, parent, rank)) {
+                        count--;
+                    }
                 }
             }
-
-            // First position add ho gayi, ab total islands return kar do.
-            ans.add(islands.size());
+            result.add(count);
         }
-        return ans;
+        return result;
     }
 
-
-    class UnionFind2D {
-        private int[] roots;
-        private int[] ranks;
-        private int m, n, count;
-
-        public UnionFind2D(int m, int n) {
-            this.count = 0;
-            this.n = n;
-            this.m = m;
-
-            this.roots = new int[m * n + 1];
-            Arrays.fill(this.roots, -1);
-
-            this.ranks = new int[m * n + 1];
-            Arrays.fill(this.ranks, 1);
+    public boolean union(int positionIndex, int neighborIndex, Integer[] parent, Integer[] rank) {
+        int pRoot = find(positionIndex, parent);
+        int qRoot = find(neighborIndex, parent);
+        if (pRoot == qRoot) {
+            return false;
         }
-
-        public int getCellIndex(int x, int y) {
-            return x * n + y + 1;
+        if (rank[pRoot] < rank[qRoot]) {
+            parent[pRoot] = qRoot;
+        } else if (rank[pRoot] > rank[qRoot]) {
+            parent[qRoot] = pRoot;
+        } else {
+            parent[qRoot] = pRoot;
+            rank[pRoot]++;
         }
+        return true;
+    }
 
-        public int size() {
-            return this.count;
+    public int find(int index, Integer[] parent) {
+        while (index != parent[index]) {
+            parent[index] = parent[parent[index]];
+            index = parent[index];
         }
+        return index;
+    }
 
-        public int getNeighborId(int x, int y) {
-            if (0 <= x && x < m && 0<= y && y < n)
-                return roots[getCellIndex(x, y)];
-            return 0;
+    private boolean isValid(Integer[] parent, int m, int n, int r, int c) {
+        if (r < 0 || c < 0 || r >= m || c >= n || parent[r * n + c] == -1) {
+            return false;
         }
-
-        public int add(int x, int y) {
-            int i = getCellIndex(x, y);
-
-            // If we have already added this, it means it was a duplicate. Island count shouldn't be incremented.
-            // Return zero.
-            if(roots[i] == i) {
-                return 0;
-            }
-
-            roots[i] = i;
-            ranks[i] = 1;
-            count++;
-            return i;
-        }
-
-        public boolean find(int p, int q) {
-            return root(p) == root(q);
-        }
-
-        public void unite(int p, int q) {
-            int i = root(p);
-            int j = root(q);
-
-            // Now compare both the roots
-            if (ranks[i] < ranks[j]) { //weighted quick union
-                roots[i] = j;
-                ranks[j] += ranks[i];
-            } else {
-                roots[j] = i;
-                ranks[i] += ranks[j];
-            }
-            count--;
-        }
-
-        private int root(int i) {
-
-            // See if i can lead you to a parent
-            for (; i != roots[i]; i = roots[i]) {
-                int parent = roots[i];
-                roots[i] = roots[parent]; //path compression
-            }
-
-            return i;
-        }
+        return true;
     }
 }

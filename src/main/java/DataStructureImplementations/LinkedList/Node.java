@@ -1,4 +1,4 @@
-package LinkedList;
+package DataStructureImplementations.LinkedList;
 
 
 public class Node<K, V> 

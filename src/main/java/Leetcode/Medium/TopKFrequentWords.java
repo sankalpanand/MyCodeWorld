@@ -8,12 +8,14 @@ public class TopKFrequentWords {
 
 //        int[] nums = {1,1,1,2,2,3};
         String[] words = {"i", "love", "leetcode", "i", "love", "coding"};
-        System.out.println(obj.topKFrequent(words, 1));
+        System.out.println(obj.topKFrequent(words, 2));
     }
 
     public List<String> topKFrequent(String[] words, int k) {
 
-        TreeSet<String>[] bucket = new TreeSet[words.length + 1];
+
+        TreeSet<String>[] bucket = new TreeSet[words.length + 1]; // words.length + 1 isliye kyunki every word can be unique also
+
         Map<String, Integer> frequencyMap = new HashMap<String, Integer>();
 
         for (String word : words) {

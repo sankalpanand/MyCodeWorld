@@ -7,39 +7,40 @@ public class EditDistance {
 
 	}
 	
-	// https://www.youtube.com/watch?v=We3YDTzNXEk
-    public int minDistance(String word1, String word2) 
-    {
+	// Neetcode - https://www.youtube.com/watch?v=XYi2-LPrwm4
+    // Leetcode - https://leetcode.com/problems/edit-distance/
+    public int minDistance(String word1, String word2) {
         int m = word1.length();
         int n = word2.length();
+        int[][] dp = new int[m + 1][n + 1];
 
+        // Initialize dp array with infinity
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                dp[i][j] = Integer.MAX_VALUE;
+            }
+        }
 
-        int[][] cost = new int[m + 1][n + 1];
-        
-        for(int i = 0; i <= m; i++)
-            cost[i][0] = i;
-        for(int i = 1; i <= n; i++)
-            cost[0][i] = i;
-        
+        // Base cases
+        for (int j = 0; j <= n; j++) {
+            dp[m][j] = n - j;
+        }
 
-        for(int i = 0; i < m; i++) 
-        {
-            for(int j = 0; j < n; j++) 
-            {
-            	// If the letters are same, then we just need previous value from the diagonal.
-                if(word1.charAt(i) == word2.charAt(j))
-                    cost[i + 1][j + 1] = cost[i][j];
-                else 
-                {
-                    int prev = cost[i][j];
-                    int top = cost[i][j + 1];
-                    int left = cost[i + 1][j];
-                    cost[i + 1][j + 1] = Math.min(Math.min(prev,top), left) + 1;
+        for (int i = 0; i <= m; i++) {
+            dp[i][n] = m - i;
+        }
+
+        // Fill dp array
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                if (word1.charAt(i) == word2.charAt(j)) {
+                    dp[i][j] = dp[i + 1][j + 1];
+                } else {
+                    dp[i][j] = 1 + Math.min(dp[i + 1][j], Math.min(dp[i][j + 1], dp[i + 1][j + 1]));
                 }
             }
         }
-        
-        return cost[m][n];
-    }
 
+        return dp[0][0];
+    }
 }

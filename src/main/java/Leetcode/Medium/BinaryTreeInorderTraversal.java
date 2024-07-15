@@ -12,62 +12,23 @@ public class BinaryTreeInorderTraversal {
 	}
 
 	// https://www.youtube.com/watch?v=nzmtCFNae9k
-    public List<Integer> inorderTraversal(TreeNode root){
-        Deque<TreeNode> stack = new LinkedList<>();
-        TreeNode node = root;
-        List<Integer> result = new ArrayList<>();
-
-        while(true) {
-            // As long as you're getting the node, keep going left
-            if(node != null){
-                stack.addFirst(node);
-                node = node.left;
-            }
-
-            // At this point, there's no more left.
-            else{
-                if(stack.isEmpty()) {
-                    break;
-                }
-
-                // Pop from the stack
-                node = stack.pollFirst();
-
-                // Add it to result
-                result.add(node.val);
-
-                // Go to the right of this node
-                node = node.right;
-            }
-        }
-
-        return result;
-    }
-
-	public List<Integer> inorderTraversal1(TreeNode root) 
-    {
-        List<Integer> result = new ArrayList<>();
+    // Same template as -
+    // Kth Smallest Element in a BST
+    // Validate Binary Search Tree
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        if(root == null) return list;
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode curr = root;
-        
-        // Go on as long as there is a node at current OR there are elements in stack
-        while(curr != null || !stack.isEmpty())
-        {
-            // As soon as curr is null, break the loop and pop from the stack
-            while(curr != null)
-            {
-                stack.push(curr);
-                curr = curr.left;
+        while(root != null || !stack.empty()) {
+            while(root != null) {
+                stack.push(root);
+                root = root.left;
             }
-            
-            TreeNode node = stack.pop();
-            result.add(node.val);
-            
-            // This will take care of the RST of any nodes which will be pushed onto stack in the next iteration
-            curr = node.right;
+            root = stack.pop();
+            list.add(root.val);
+            root = root.right;
         }
-        
-        return result;
+        return list;
     }
 
 }

@@ -1,4 +1,4 @@
-package main.java.Leetcode.Medium;
+package Leetcode.Medium;
 
 public class Q516LongestPalindromicSubsequence {
 
@@ -10,30 +10,21 @@ public class Q516LongestPalindromicSubsequence {
         System.out.println(res);
     }
 
-    public int longestPalindromeSubseq(String s) {
-        // Get the length of the input string
-        int n = s.length();
+    // Exactly similar to Q1143 longest common subsequence
+    public int longestPalindromeSubseq(String text1) {
+        String text2 = new StringBuilder(text1).reverse().toString();
 
-        // Initialize a 2D array to store the length of the longest palindromic subsequence
-        int[][] dp = new int[n][n];
+        int[][] dp = new int[text1.length() + 1][text2.length() + 1];
 
-        // Iterate over the substrings in reverse order to fill in the dp table bottom-up
-        for (int i = n-1; i >= 0; i--) {
-            // Base case: the longest palindromic subsequence of a single character is 1
-            dp[i][i] = 1;
-            for (int j = i+1; j < n; j++) {
-                // If the two characters match, the longest palindromic subsequence can be extended by two
-                if (s.charAt(i) == s.charAt(j)) {
-                    dp[i][j] = 2 + dp[i+1][j-1];
-                } else {
-                    // Otherwise, we take the maximum of the two possible substrings
-                    dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1]);
-                }
+        for (int i = text1.length() - 1; i >= 0; i--) {
+            for (int j = text2.length() - 1; j >= 0; j--) {
+                if (text1.charAt(i) == text2.charAt(j))
+                    dp[i][j] = 1 + dp[i + 1][j + 1];
+                else
+                    dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);
             }
         }
-
-        // The length of the longest palindromic subsequence is in the top-right corner of the dp table
-        return dp[0][n-1];
+        return dp[0][0];
     }
 
 

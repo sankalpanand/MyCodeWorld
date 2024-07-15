@@ -21,22 +21,51 @@ public class MaxConsecutiveOnes2 {
     Explanation: Flip the first zero will get the the maximum number of consecutive 1s. After flipping, the maximum number of consecutive 1s is 4.
      */
 
+    // From the editorial
     public static int findMaxConsecutiveOnes(int[] nums) {
-        int  maxConsecutive = 0;
-        int onesToTheLeftIncluding = 0; // This will keep count of all the one's before this zero including this zero
-        int runningCountOfOnes = 0; // This will keep count of all the one's before this zero including this zero
+        int left=0, right=0, numZeroes=0;
 
-        for( int  i = 0; i < nums.length; ++i) {
-            ++runningCountOfOnes;
+        // While our window is in bounds
+        while (right < nums.length) {
 
-            // As soon as you find zero,  
-            if  (nums[i] == 0) {
-                onesToTheLeftIncluding = runningCountOfOnes;
-                runningCountOfOnes = 0;
+            // Increase numZeroes if the rightmost element is 0
+            if (nums[right] == 0) {
+                numZeroes++;
             }
-            maxConsecutive = Math.max(maxConsecutive, onesToTheLeftIncluding + runningCountOfOnes);
-            System.out.println("nums[i]: " + nums[i] + "\trunningCountOfOnes: " + runningCountOfOnes + "\tonesToTheLeftIncluding: " + onesToTheLeftIncluding + "\tmaxConsecutive: " + maxConsecutive);
+
+            //If our window is invalid, contract our window
+            if(numZeroes>1) {
+                if (nums[left] == 0) {
+                    numZeroes--;
+                }
+                left++;
+            }
+
+            // Expand our window
+            right++;
         }
-        return   maxConsecutive;
+
+        return right-left;
+    }
+
+    public int longestOnes3(int[] nums, int k) {
+        int left=0, right=0, numZeroes=0;
+
+        while (right < nums.length) {
+            if (nums[right] == 0){
+                numZeroes++;
+            }
+
+
+            if(numZeroes > k) {
+                if (nums[left] == 0){
+                    numZeroes--;
+                }
+                left++;
+            }
+
+            right++;
+        }
+        return right-left;
     }
 }

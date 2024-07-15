@@ -1,4 +1,7 @@
-package HashMap;
+package DataStructureImplementations.HashMap;
+
+import DataStructureImplementations.HashMap.Person;
+import DataStructureImplementations.HashMap.MyHashMap;
 
 public class Runner {
 	public static void main(String[] args) {

@@ -1,9 +1,8 @@
-package Threading;
+package JavaConcepts.Threading;
 
 public class NoSynchronization 
 {
-	public static void main(String args[]) 
-	{
+	public static void main(String[] args) {
 		ATM PD = new ATM();
 
 		UserProcess user1 = new UserProcess("Thread - 1 ", PD);
@@ -52,16 +51,15 @@ class UserProcess extends Thread {
 	public void run() {
 		
 		// Unsysnchronized
-		/*for (int i = 0; i < 5; i++) {
-			PD.debit(this.threadName);
-		}
-		for (int i = 0; i < 5; i++) {
-			PD.credit(this.threadName);
-		}*/
+//		for (int i = 0; i < 5; i++) {
+//			PD.debit(this.threadName);
+//		}
+//		for (int i = 0; i < 5; i++) {
+//			PD.credit(this.threadName);
+//		}
 
 		// Synchronized - This will allow Thread 1 to run first, then only thread 2
-		synchronized(PD)
-		{
+		synchronized(PD) {
 			for (int i = 0; i < 5; i++) {
 				PD.debit(this.threadName);
 			}

@@ -20,7 +20,7 @@ public class Traversals extends Tree {
 		int[] array = {1,2,3,4,5,6,7,8,9};
 		
 		TreeNode root = AssortedMethods.createMinimalBST(array, 0, array.length - 1);
-		BTreePrinter.printNode(root);
+		BTreePrinter1.printNode(root);
 		// inOrder(root);
 		// System.out.println();
 		// preOrder(root);

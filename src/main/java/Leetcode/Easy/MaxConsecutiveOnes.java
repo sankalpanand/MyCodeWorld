@@ -11,14 +11,36 @@ public class MaxConsecutiveOnes {
         int result = 0;
         int count = 0;
 
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 1) {
+        for (int num : nums) {
+            if (num == 1) {
                 count++;
                 result = Math.max(count, result);
+            } else {
+                count = 0;
             }
-            else count = 0;
+
         }
 
         return result;
     }
+
+    // One optimization - no need to update result on 1s
+    public static int findMaxConsecutiveOnes_optimized(int[] nums) {
+        int result = 0;
+        int count = 0;
+
+        for (int num : nums) {
+            if (num == 1) {
+                count++;
+
+            } else {
+                result = Math.max(count, result);
+                count = 0;
+            }
+
+        }
+
+        return Math.max(count, result);
+    }
+
 }

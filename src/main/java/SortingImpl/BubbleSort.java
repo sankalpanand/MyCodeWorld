@@ -26,30 +26,26 @@ public class BubbleSort {
 	}
 
 	// n || n^2 || n^2
-	private static void bubbleSort(int[] nums) 
-	{
+	private static void bubbleSort(int[] nums) {
 		int n = nums.length;
 
-		for (int i = 0; i < n; i++) 
-		{
-			// With every sweep, the largest element will move towards end. So j need not go till n.
-			for (int j = 1; j < (n - i); j++) 
-			{
+		for (int i = 0; i < n; i++) { // Outer for loop isn't tracking a pointer. It's just that this process of passes will occur n times.
+
+			// Sweeping will start from index 1
+			// With every sweep, the largest element will move towards the end. So j need not go till n.
+			for (int j = 1; j < (n - i); j++) {
 				// If the item to the left is larger, swap it to the right
-				if (nums[j - 1] > nums[j]) 
-				{
+				if (nums[j - 1] > nums[j]) {
 					// swap the elements!
 					nums[j] = nums[j] + nums[j-1];
 					nums[j-1] = nums[j] - nums[j-1];
 					nums[j] = nums[j] - nums[j-1];
 				}
-
 			}
 		}
 	}
 	
-	public static void swap(int a, int b)
-	{
+	public static void swap(int a, int b) {
 		a = a + b;
 		b = a - b;
 		a = a - b;		

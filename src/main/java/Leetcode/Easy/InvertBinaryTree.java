@@ -1,5 +1,6 @@
 package Leetcode.Easy;
 
+import Leetcode.Templates.TreeNode;
 import java.util.Stack;
 
 public class InvertBinaryTree {

@@ -6,16 +6,14 @@ public class MergeSort {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] array = {2,4,1,6,8,5,3,7}; // len=8
+		int[] array = {52, 36, 43, 97, 21, 18, 67}; // len=8
 		System.out.println(Arrays.toString(array));
 		mergeSort(array);
 		System.out.println(Arrays.toString(array));
-
 	}
 
 	// https://www.youtube.com/watch?v=TzeBrDU-JaY
-	public static void mergeSort(int[] array)
-	{
+	public static void mergeSort(int[] array) {
 		int len = array.length;
 		
 		/* BASE CONDITION
@@ -31,8 +29,7 @@ public class MergeSort {
 		int[] right = new int[len - mid]; // remaining size 
 
 		//	int[] left1 = Arrays.copyOfRange(array, 0, mid);
-		for (int i = 0; i < mid; i++) 
-		{
+		for (int i = 0; i < mid; i++) {
 			left[i] = array[i];
 		}
 
@@ -54,16 +51,13 @@ public class MergeSort {
 		int rightLength = right.length;
 		
 		int leftIndex = 0, rightIndex =0, parentIndex = 0;
-		while(leftIndex < leftLength && rightIndex < rightLength)
-		{
-			if(left[leftIndex] <= right[rightIndex])
-			{
+		while(leftIndex < leftLength && rightIndex < rightLength) {
+
+			if(left[leftIndex] <= right[rightIndex]) {
 				parent[parentIndex] = left[leftIndex];
 				
 				leftIndex++;
-			}
-			else
-			{
+			} else {
 				parent[parentIndex] = right[rightIndex];				
 				rightIndex++;
 			}
@@ -73,23 +67,17 @@ public class MergeSort {
 		
 		/* Only one of these two while loops will execute */
 		/* Check whether there are leftovers in the left array */
-		while(leftIndex < leftLength)
-		{
+		while(leftIndex < leftLength) {
 			parent[parentIndex] = left[leftIndex];
 			parentIndex++;
 			leftIndex++;
 		}
 		
 		/* Check whether there are leftovers in the right array */
-		while(rightIndex < rightLength)
-		{
+		while(rightIndex < rightLength) {
 			parent[parentIndex] = right[rightIndex];
 			parentIndex++;
 			rightIndex++;
 		}				
-		
 	}
-	
-	
-
 }

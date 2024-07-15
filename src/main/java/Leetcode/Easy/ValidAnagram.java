@@ -29,8 +29,10 @@ public class ValidAnagram extends StringManipulation {
 			if(map.containsKey(ch))
 			{
 				int count = map.get(ch);
-				if(count == 1) map.remove(ch);
-				else map.put(ch, count-1); 				
+				if(count == 1)
+					map.remove(ch);
+				else
+					map.put(ch, count-1);
 			}
 			else
 				return false;

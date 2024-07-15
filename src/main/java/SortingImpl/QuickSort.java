@@ -13,17 +13,18 @@ public class QuickSort {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] array = {7,2,1,6,8,5,3,4};	
+		int[] array = {52, 36, 43, 97, 21, 18, 67};
 		System.out.println(Arrays.toString(array));
-		Sort(array, 0, 7);
+		Sort(array, 0, 6);
 		System.out.println(Arrays.toString(array));
 
 	}
-	
+
+	// Works on the idea that an element is sorted if all the elements left of it are smaller and all the elements right of it are bigger
+	// https://www.youtube.com/watch?v=7h1s2SojIRw
 	public static void Sort(int[] array, int start, int end)
 	{		
-		if (start >= end) 
-		{
+		if (start >= end) {
 			return;
 		}
 		
@@ -44,10 +45,11 @@ public class QuickSort {
         // if you're swapping smaller value with the partition index, you'll have to increment it so that the next swap takes place at the next index
         // partition index will be left behind i as you'll start encountering larger numbers.
 		int partitionIndex = start;
-		for (int i = start; i < end; i++) 
-		{
-			if (array[i] <= pivot) 
-			{
+
+		// Agar pivot bada hai, to dono i and p aage badhenge and swap hoga
+		// Agar pivot chhota hai to sirf i aage badhega
+		for (int i = start; i < end; i++) {
+			if (array[i] <= pivot) {
 				swap(array, i, partitionIndex);
 				partitionIndex++;				
 			}			

@@ -1,5 +1,7 @@
 package Leetcode.Easy;
 
+import Leetcode.Templates.TreeNode;
+
 public class MergeTwoBinaryTrees {
 
 	public static void main(String[] args) {

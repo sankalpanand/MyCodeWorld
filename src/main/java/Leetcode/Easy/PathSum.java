@@ -1,5 +1,7 @@
 package Leetcode.Easy;
 
+import Leetcode.Templates.TreeNode;
+
 public class PathSum {
 	
 	// https://www.youtube.com/watch?v=Jg4E4KZstFE

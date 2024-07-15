@@ -1,12 +1,12 @@
 package Leetcode.Easy;
 
-import Leetcode.ParentClasses.Tree;
+import Leetcode.Templates.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-public class MaximumDepthOfBST extends Tree {
+public class MaximumDepthOfBST extends Leetcode.ParentClasses.Tree {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

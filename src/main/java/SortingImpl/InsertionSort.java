@@ -28,25 +28,28 @@ public class InsertionSort {
 	}
 
 	//	https://www.youtube.com/watch?v=i-SKeOcBwko
+	// https://www.youtube.com/watch?v=JU767SDMDvA - short version
+	// We assume that the first item is always sorted
+	// We start with the second element and insert it in the right place
+	// With each pass, the sorted portion of the array on the left increases by 1
+	public static void insertionSort(int arr[]) {
+		int n = arr.length;
+		for (int i = 1; i < n; ++i) {
+			int key = arr[i];
+			int j = i - 1;
 
-	public static int[] insertionSort(int[] nums) 
-	{
-		for (int i = 1; i < nums.length; i++) 
-		{
-			int j = i;
-			
-			// Har baar i se pichhe chalo, agar koi aisa element milta hai jo pichhe se chhota hai, swap kar do
-			while (j > 0 && nums[j] < nums[j - 1])
-			{
-				nums[j] = nums[j] + nums[j - 1];
-				nums[j - 1] = nums[j] - nums[j - 1];
-				nums[j] = nums[j] - nums[j - 1];
-
+            /* Move elements of arr[0..i-1], that are
+               greater than key, to one position ahead
+               of their current position */
+			while (j >= 0 && arr[j] > key) {
+				arr[j + 1] = arr[j]; // Copy this element on to next one
 				j--;
 			}
-		}
 
-		return nums;
+			// Loop will break when the key (item to be moved) is no longer smaller than the item at j
+			// It means, just place the key on the next place, which is j+1
+			arr[j + 1] = key;
+		}
 	}
 
 }

@@ -3,72 +3,51 @@ package Leetcode.Medium;
 public class SearchInRotatedSortedArray1 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		SearchInRotatedSortedArray1 solution = new SearchInRotatedSortedArray1();
+		int[] nums = {4, 5, 6, 7, 0, 1, 2};
+//		int target = 0;
+//		int result = solution.search(nums, target);
+//		System.out.println("The index of the target is: " + result); // Output should be 4
 
+		nums = new int[] {95, 99, 9, 11, 22, 26, 37, 54, 59, 73, 79, 92};
+		System.out.println(solution.search(nums, 9));
 	}
 
-	public static int search(int[] nums, int target) 
-	{
-		// Check the edge cases
-		if(nums.length == 1)
-		{
-			if(nums[0] == target) return 0;
-			else return -1;
-		}
+	public int search(int[] nums, int target) {
+		int l = 0, r = nums.length - 1;
 
-		int high = nums.length -1;
-		int low = 0;
+		while (l <= r) {
+			int mid = (l + r) / 2;
+			int numMid = nums[mid];
 
-
-		// Start from both the ends
-		while(low <= high)
-		{
-			// Calculate the mid
-			int mid = (low+high)/2;
-
-			// If the number is found at the middle element, return the target
-			if(nums[mid] == target)
+			if (target == numMid) {
 				return mid;
-
-			// Else check two cases-
-			// If mid is less than high, it means right part is sorted and left is not sorted
-			if(nums[mid] < nums[high])
-			{
-				// Check if the target lies in the sorted part, if yes, increase low by 1
-				if(nums[mid] < target && target <= nums[high])
-				{
-					low = mid + 1;
-				}
-
-				// Else, target lies in the unsorted part
-				else
-				{
-					high = mid;
-				}
 			}
 
-			// Apply the same check over here. Else means that the left part is sorted and left is not
-			else if(nums[mid] > nums[high]) 
-			{
-				// Check if the targt exists in the left sorted part or not. Accordingly update the mid.
-				if(nums[low] <= target && target < nums[mid])
-				{
-					high = mid;
-				}
-				else
-				{
-					low = mid + 1;
-				}
-			}          
+			// Check if the left half is sorted
+			int numL = nums[l]; int numR = nums[r];
 
-			// If it is reduced to one number, then nums[mid] will become equal to nums[high]
-			// Simply move ahead by decrementing high
-			else
-			{
-				high--;
+			// If leftmost element is smaller, then it means the pivot is somewhere on the right and left partition will be sorted
+			if (numL <= numMid) {
+				// Now if the target lies in the partition with the pivot, it can be either before the pivot or after pivot. So we need to OR two conditions as below.
+				if (target > numMid
+						|| target < numL) {	// left partition is sorted but target is even smaller than the left, so the target should be in the right partition
+					l = mid + 1;
+				} else {					// left partition is sorted but target is greater than the left, so the target should be in the left partition
+					r = mid - 1;
+				}
+			}
+			// If leftmost element is larger, then it means the pivot is somewhere on the left and right partition will be sorted
+			else {
+				// Check if the target is in the right half
+				if (target < numMid			// right partition is sorted but target is smaller than the mid, which means the target should be in the left partition
+						|| target > numR) {	// right partition is sorted but target is greater than right element, which means target should be in the left partition
+					r = mid - 1;
+				} else {
+					l = mid + 1;
+				}
 			}
 		}
-
 		return -1;
 	}
 

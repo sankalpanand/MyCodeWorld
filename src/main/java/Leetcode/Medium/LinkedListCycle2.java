@@ -9,6 +9,9 @@ public class LinkedListCycle2 {
 
 	}
 
+	// This is the best explanation
+    // https://medium.com/@zephyr.ventum/floyds-tortoise-and-hare-cycle-finding-algorithm-my-over-explanation-5631c5ce71d7
+    // Video explanation by Neetcode - https://www.youtube.com/watch?v=wjYnzkAhcNk
     public ListNode detectCycle(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;

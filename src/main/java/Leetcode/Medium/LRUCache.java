@@ -3,10 +3,8 @@ package Leetcode.Medium;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LRUCache
-{
-	class LRUNode
-	{
+public class LRUCache {
+	class LRUNode {
 		int key;
 		int value;
 
@@ -36,8 +34,7 @@ public class LRUCache
 	}
 	
 	/** New node is added always at the head */
-	private void addNode(LRUNode node)
-	{
+	private void addNode(LRUNode node) {
 		// Step 1: Link the node's left and right pointers
 	    node.pre = head;
 	    node.next = head.next;
@@ -58,8 +55,7 @@ public class LRUCache
 	}
 
 	/** Move certain node in between to the head. */
-	private void moveToHead(LRUNode node)
-	{
+	private void moveToHead(LRUNode node) {
 	    this.removeNode(node);
 	    this.addNode(node);
 	}
@@ -106,8 +102,7 @@ public class LRUCache
 	            this.cache.remove(tail.key);
 	            count--;
 	        }
-	    }
-	    else { // This value already exists
+	    } else { // This value already exists
 	        // Update it and bring it to the front to make it LRU
 	        node.value = value;
 	        this.moveToHead(node);

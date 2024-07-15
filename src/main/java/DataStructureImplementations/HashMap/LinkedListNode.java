@@ -1,4 +1,4 @@
-package HashMap;
+package DataStructureImplementations.HashMap;
 
 public class LinkedListNode<K, V> 
 {

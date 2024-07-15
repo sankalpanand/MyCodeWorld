@@ -1,4 +1,4 @@
-package DoublyLinkedList;
+package DataStructureImplementations.DoublyLinkedList;
 
 class Node {
     int element;
