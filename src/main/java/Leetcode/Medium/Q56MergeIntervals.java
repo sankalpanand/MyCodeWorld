@@ -12,7 +12,8 @@ public class Q56MergeIntervals {
         System.out.println(Arrays.toString(obj.merge(intervals)));
 	}
 
-	// Video explanation - https://www.youtube.com/watch?v=qKczfGUrFY4
+	// Neetcode - https://www.youtube.com/watch?v=44H3cEC2fFM
+    // Leetcode - https://leetcode.com/problems/merge-intervals/description/
     public int[][] merge(int[][] intervals) {
         List<int[]> res = new ArrayList<>();
         if (intervals.length <= 1)
@@ -47,21 +48,27 @@ public class Q56MergeIntervals {
         return res.toArray(new int[res.size()][]);
     }
 
-    public List<Interval> merge(List<Interval> intervals) {
+    // Using the +1 -1 approach
+    public int[][] merge_2(int[][] intervals) {
         Map<Integer, Integer> map = new TreeMap<>();
-        for (Interval itl : intervals) {
-            map.put(itl.start, map.getOrDefault(itl.start, 0) + 1);
-            map.put(itl.end, map.getOrDefault(itl.end, 0) - 1);
+        for (int[] itl : intervals) {
+            map.put(itl[0], map.getOrDefault(itl[0], 0) + 1);
+            map.put(itl[1], map.getOrDefault(itl[1], 0) - 1);
         }
-        List<Interval> list = new LinkedList<>();
+        List<int[]> list = new LinkedList<>();
         int start = 0, cnt = 0;
         for (Map.Entry<Integer, Integer> e : map.entrySet()) {
-            if (cnt == 0) start = e.getKey();
+            if (cnt == 0)
+                start = e.getKey();
+
             // if cnt is 0, that means a full interval has been completed.
-            if ((cnt += e.getValue()) == 0)
-                list.add(new Interval(start, e.getKey()));
+            cnt += e.getValue();
+            if (cnt == 0) {
+                list.add(new int[] {start, e.getKey()});
+            }
+
         }
-        return list;
+        return list.toArray(new int[list.size()][]);
     }
 }
 
